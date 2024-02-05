@@ -43,14 +43,16 @@ document.querySelector('#changeimage').addEventListener('click', function (e) {
 document.querySelector('#changebg').addEventListener('click', function (e) {
     //change bg of all cards, toggle-able
     var mycards = document.getElementsByTagName('my-card');
-        if (mycards[0].bgcolor !== "grey") {
+    var r = document.querySelector(':root');
+    var rs = getComputedStyle(r);
+        if (rs.getPropertyValue('--bgcolor') !== "black") {
         for (var i = 0; i < mycards.length; i++) {
-            mycards[i].bgcolor('grey');
+            r.style.setProperty('--bgcolor', 'black');
         }
     }
     else {
         for (var i = 0; i < mycards.length; i++) {
-            mycards[i].bgcolor('black')
+            r.style.setProperty('--bgcolor', 'grey');;
         }
     }
 });

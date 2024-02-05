@@ -17,7 +17,6 @@ export class MyCard extends LitElement {
     this.imageurl = "https://i.pinimg.com/originals/fb/30/d0/fb30d0ef2fd6304ebcb837a59afb8817.jpg";
     this.description = "This is the highest tier of meme when it comes to relatability and humour.";
     this.btnlink = "https://hax.psu.edu";
-    /* this.bgcolor = "grey"; */
   }
 
   static get styles() {
@@ -37,7 +36,7 @@ export class MyCard extends LitElement {
         margin: 32px;
         border-radius: 8px;
         color: white;
-        background-color: grey;
+        background-color: var(--bgcolor);
         transition: transform 0.3s ease;
         border-style: solid;
         border-width: 4px;
@@ -149,7 +148,6 @@ export class MyCard extends LitElement {
       imageurl: { type: String },
       description: {type: String},
       btnlink: {type: String},
-      bgcolor: {type: String}
     };
   }
 }
