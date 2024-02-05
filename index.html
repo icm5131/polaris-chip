@@ -32,16 +32,25 @@
   <polaris-chip title="Grants and Donations"></polaris-chip>
   <!-- this is going to take the tag and change the title -->
   <h1>my-card</h1>
-  <my-card></my-card>
-  <my-card></my-card>
-  <my-card></my-card>
-  <my-card></my-card>
-  <my-card></my-card>
-
+  <div class="control-wrapper">
+    <button id="duplicate">Clone Card</button>
+    <button id="changetitle">Change Title</button>
+    <button id="changeimage">Change Image</button>
+    <button id="changebg">Change Background</button>
+    <button id="delete">Delete Card</button>
+  </div>
+  <div class="mycards">
+    <my-card></my-card>
+    <my-card></my-card>
+    <my-card></my-card>
+    <my-card></my-card>
+    <my-card></my-card>
+  </div>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>
   <script type="module" src="./src/my-card.js"></script>
+  <script type="module" src="./src/my-cardfunc.js"></script>
 </body>
 
 </html>

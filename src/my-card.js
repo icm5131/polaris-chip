@@ -17,6 +17,7 @@ export class MyCard extends LitElement {
     this.imageurl = "https://i.pinimg.com/originals/fb/30/d0/fb30d0ef2fd6304ebcb837a59afb8817.jpg";
     this.description = "This is the highest tier of meme when it comes to relatability and humour.";
     this.btnlink = "https://hax.psu.edu";
+    /* this.bgcolor = "grey"; */
   }
 
   static get styles() {
@@ -121,31 +122,34 @@ export class MyCard extends LitElement {
 
   render() {
     return html`
-        <div class="cardlist">
-          <div class="base">
-            <div class="Title">
-              <header class="card-title">${this.title}</header>
-            </div>
-              <img class="img" src="${this.imageurl}" width="280">
-            <div class="description">
-              <p>
-                ${this.description}
-              </p>
-            </div>
-            <div class="btn-wrapper">
-              <a class="link" href="${this.btnlink}">
-                <button class="btn">Details</button>
-              </a>
-            </div>
+      <div class="cardlist">
+        <div class="base">
+          <div class="Title">
+            <header class="card-title">${this.title}</header>
+          </div>
+            <img class="img" src="${this.imageurl}" width="280">
+          <div class="description">
+            <p>
+              ${this.description}
+            </p>
+          </div>
+          <div class="btn-wrapper">
+            <a class="link" href="${this.btnlink}">
+              <button class="btn">Details</button>
+            </a>
           </div>
         </div>
-      `;
+      </div>
+    `;
   }
 
   static get properties() {
     return {
       title: { type: String },
-      imageurl: { type: true }
+      imageurl: { type: String },
+      description: {type: String},
+      btnlink: {type: String},
+      bgcolor: {type: String}
     };
   }
 }
