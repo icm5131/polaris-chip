@@ -3,7 +3,8 @@ document.querySelector('#duplicate').addEventListener('click', function (event) 
     //No More than 10 cards
     console.log(document.querySelectorAll('.mycards my-card').length);
     if (document.querySelectorAll('my-card').length < 10) {
-        document.querySelector('.mycards').innerHTML += `<my-card></my-card>`;
+        const newCard = document.querySelector('my-card').cloneNode();
+        document.querySelector('.mycards').appendChild(newCard);
     }
 });
 
@@ -11,14 +12,14 @@ document.querySelector('#duplicate').addEventListener('click', function (event) 
 document.querySelector('#changetitle').addEventListener('click', function (e) {
     //document.querySelector('.card-title').innerHTML = "Worst Meme";
     var mycards = document.getElementsByTagName('my-card');
-    if (mycards[0].title !== 'THE WORST MEME') {
+    if (mycards[0].cardtitle !== 'THE WORST MEME') {
         for (var i = 0; i < mycards.length; i++) {
-            mycards[i].title = "THE WORST MEME";
+            mycards[i].cardtitle = "THE WORST MEME";
         }
     }
     else {
         for (var i = 0; i < mycards.length; i++) {
-            mycards[i].title = "THE BEST MEME";
+            mycards[i].cardtitle = "THE BEST MEME";
         }
     }
 });

@@ -13,7 +13,7 @@ export class MyCard extends LitElement {
 
   constructor() {
     super();
-    this.title = "THE BEST MEME";
+    this.cardtitle = "THE BEST MEME";
     this.imageurl = "https://i.pinimg.com/originals/fb/30/d0/fb30d0ef2fd6304ebcb837a59afb8817.jpg";
     this.description = "This is the highest tier of meme when it comes to relatability and humour.";
     this.btnlink = "https://hax.psu.edu";
@@ -124,7 +124,7 @@ export class MyCard extends LitElement {
       <div class="cardlist">
         <div class="base">
           <div class="Title">
-            <header class="card-title">${this.title}</header>
+            <header class="card-title">${this.cardtitle}</header>
           </div>
             <img class="img" src="${this.imageurl}" width="280">
           <div class="description">
@@ -144,10 +144,10 @@ export class MyCard extends LitElement {
 
   static get properties() {
     return {
-      title: { type: String },
-      imageurl: { type: String },
+      cardtitle: { type: String, reflect: true, attribute: "card-title"},
+      imageurl: { type: String, attribute: "image-url", reflect: true },
       description: {type: String},
-      btnlink: {type: String},
+      btnlink: {type: String, attribute: "btn-link"},
     };
   }
 }
