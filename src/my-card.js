@@ -75,11 +75,6 @@ export class MyCard extends LitElement {
         background-color: dimgrey;
       }
 
-      .cardlist {
-        display: flex;
-        flex-wrap: wrap;
-      }
-
       .base .description {
         text-align: center;
         background-color: dimgrey;
@@ -121,22 +116,20 @@ export class MyCard extends LitElement {
 
   render() {
     return html`
-      <div class="cardlist">
-        <div class="base">
-          <div class="Title">
-            <header class="card-title">${this.cardtitle}</header>
-          </div>
-            <img class="img" src="${this.imageurl}" width="280">
-          <div class="description">
-            <p>
-              ${this.description}
-            </p>
-          </div>
-          <div class="btn-wrapper">
-            <a class="link" href="${this.btnlink}">
-              <button class="btn">Details</button>
-            </a>
-          </div>
+      <div class="base">
+        <div class="Title">
+          <header class="card-title">${this.cardtitle}</header>
+        </div>
+        <img class="img" src="${this.imageurl}" width="280">
+        <div class="description">
+          <p>
+            ${this.description}
+          </p>
+        </div>
+        <div class="btn-wrapper">
+          <a class="link" href="${this.btnlink}">
+            <button class="btn">Details</button>
+          </a>
         </div>
       </div>
     `;
