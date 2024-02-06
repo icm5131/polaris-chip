@@ -61,7 +61,8 @@ document.querySelector('#changebg').addEventListener('click', function (e) {
 //delete card
 document.querySelector('#delete').addEventListener('click', function (e) {
     console.log(document.querySelectorAll('.mycards my-card').length);
-    if (document.querySelectorAll('my-card').length !== 1) {
-        document.querySelector('my-card').remove();
+    var cards = document.getElementsByTagName('my-card');
+    if (cards.length !== 1) {
+        cards[cards.length - 1].remove();
     }
 });
