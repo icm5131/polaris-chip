@@ -40,13 +40,13 @@ export class MyCard extends LitElement {
         transition: transform 0.3s ease;
         border-style: solid;
         border-width: 4px;
-        border-color: #2b2b2b;
+        border-color: royalblue;
         text-align: center;
-        box-shadow: 8px 8px 4px darkslategray;
+        box-shadow: 8px 8px 4px darkslateblue;
       }
 
       .change-color {
-        background-color: black;
+        background-color: royalblue;
       }
 
       .img {
@@ -62,7 +62,7 @@ export class MyCard extends LitElement {
       }
 
       .btn {
-        background-color: black;
+        background-color: royalblue;
         color: white;
         font-size: 17px;
         border-radius: 8px;
@@ -72,12 +72,12 @@ export class MyCard extends LitElement {
 
       .btn:focus,
       .btn:hover {
-        background-color: dimgrey;
+        background-color: hotpink;
       }
 
       .base .description {
         text-align: center;
-        background-color: dimgrey;
+        background-color: hotpink;
         margin: 0px 8px 8px 8px;
         font-size: 17px;
         padding: 8px;
@@ -93,7 +93,7 @@ export class MyCard extends LitElement {
         padding: 8px;
         text-align: center;
         font-size: 28px;
-        background-color: dimgrey;
+        background-color: hotpink;
         border-style: solid;
         border-width: 1px;
         border-color: black;

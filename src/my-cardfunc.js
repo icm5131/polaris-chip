@@ -46,14 +46,14 @@ document.querySelector('#changebg').addEventListener('click', function (e) {
     var mycards = document.getElementsByTagName('my-card');
     var r = document.querySelector(':root');
     var rs = getComputedStyle(r);
-        if (rs.getPropertyValue('--bgcolor') !== "black") {
+        if (rs.getPropertyValue('--bgcolor') !== "lightblue") {
         for (var i = 0; i < mycards.length; i++) {
-            r.style.setProperty('--bgcolor', 'black');
+            r.style.setProperty('--bgcolor', 'lightblue');
         }
     }
     else {
         for (var i = 0; i < mycards.length; i++) {
-            r.style.setProperty('--bgcolor', 'grey');;
+            r.style.setProperty('--bgcolor', 'navy');;
         }
     }
 });
