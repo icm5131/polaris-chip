@@ -129,11 +129,14 @@ export class MyCard extends LitElement {
           <header class="card-title">${this.cardtitle}</header>
         </div>
         <img class="img" src="${this.imageurl}" width="280">
-        <div class="description">
-          <p>
-            ${this.description}
-          </p>
-        </div>
+        <details ?open="${this.fancy}">
+          <div class="description">
+            <summary>description</summary>
+            <p>
+              <slot>${this.description}</slot>
+            </p>
+          </div>
+        </details>
         <div class="btn-wrapper">
           <a class="link" href="${this.btnlink}">
             <button class="btn">Details</button>
