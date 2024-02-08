@@ -28,11 +28,13 @@ export class MyCard extends LitElement {
       }
 
       :host([fancy]) {
-        display: block;
-        background-color: pink;
-        border: 2px solid fuchsia;
-        box-shadow: 10px 5px 5px red;
-      }
+        background-color: hotpink;
+        border: 4px solid royalblue;
+        border-radius: 8px;
+        box-shadow: 10px 5px 5px darkslateblue;
+        width: 416px;
+        margin: 32px;
+}
 
       .link {
         text-decoration: none;
@@ -46,9 +48,7 @@ export class MyCard extends LitElement {
         color: white;
         background-color: var(--bgcolor);
         transition: transform 0.3s ease;
-        border-style: solid;
-        border-width: 4px;
-        border-color: royalblue;
+        border: 4px solid royalblue;
         text-align: center;
         box-shadow: 8px 8px 4px darkslateblue;
       }
@@ -108,6 +108,25 @@ export class MyCard extends LitElement {
         border-radius: 8px;
       }
 
+      details summary {
+        text-align: left;
+        font-size: 20px;
+        padding: 8px 0;
+      }
+
+      details div {
+        border: 2px solid royalblue;
+        border-radius: 8px;
+        text-align: left;
+        padding: 8px;
+        height: 70px;
+        overflow: auto;
+      }
+
+      details[open] summary {
+        font-weight: bold;
+      }
+
       @media (max-width: 800px) and (min-width: 501px) {
         .btn {
           display: none;
@@ -122,6 +141,17 @@ export class MyCard extends LitElement {
     `;
   }
 
+  // put this anywhere on the MyCard class; just above render() is probably good
+  openChanged(e) {
+    console.log(e.newState);
+    if (e.newState === "open") {
+      this.fancy = true;
+    }
+    else {
+      this.fancy = false;
+    }
+  }
+
   render() {
     return html`
       <div class="base">
@@ -129,12 +159,10 @@ export class MyCard extends LitElement {
           <header class="card-title">${this.cardtitle}</header>
         </div>
         <img class="img" src="${this.imageurl}" width="280">
-        <details ?open="${this.fancy}">
-          <div class="description">
-            <summary>description</summary>
-            <p>
-              <slot>${this.description}</slot>
-            </p>
+        <details ?open="${this.fancy}" @toggle="${this.openChanged}">
+          <summary>Description</summary>
+          <div>
+            <slot>${this.description}</slot>
           </div>
         </details>
         <div class="btn-wrapper">
