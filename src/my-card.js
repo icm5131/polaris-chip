@@ -37,7 +37,7 @@ export class MyCard extends LitElement {
         box-shadow: 10px 5px 5px darkslateblue;
         width: 416px;
         margin: 32px;
-}
+      }
 
       .link {
         text-decoration: none;
@@ -180,13 +180,13 @@ export class MyCard extends LitElement {
 
   static get properties() {
     return {
-      cardtitle: { type: String, reflect: true, attribute: "card-title"},
+      cardtitle: { type: String, reflect: true, attribute: "card-title" },
       imageurl: { type: String, attribute: "image-url", reflect: true },
-      description: {type: String},
-      btnlink: {type: String, attribute: "btn-link"},
+      description: { type: String },
+      btnlink: { type: String, attribute: "btn-link" },
       fancy: { type: Boolean, reflect: true },
       toptext: { type: String, reflect: true, attribute: "top-text" },
-      bottomtext: {type: String, reflect: true, attribute: "bottom-text"}
+      bottomtext: { type: String, reflect: true, attribute: "bottom-text" }
     };
   }
 }
