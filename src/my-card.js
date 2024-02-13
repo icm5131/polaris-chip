@@ -1,4 +1,5 @@
 import { LitElement, html, css } from 'lit';
+import "@lrnwebcomponents/meme-maker/meme-maker.js";
 
 /**
  * Now it's your turn. Here's what we need to try and do
@@ -14,10 +15,12 @@ export class MyCard extends LitElement {
   constructor() {
     super();
     this.cardtitle = "THE BEST MEME";
-    this.imageurl = "https://i.pinimg.com/originals/fb/30/d0/fb30d0ef2fd6304ebcb837a59afb8817.jpg";
+    this.imageurl = "https://www.telegraph.co.uk/content/dam/films/2016/04/28/tonystark2_trans_NvBQzQNjv4BqeuRHplZSizlnIpEPA_wgci-oMky92GODLj7YayikDrk.jpg";
     this.description = "This is the highest tier of meme when it comes to relatability and humour.";
     this.btnlink = "https://hax.psu.edu";
     this.fancy = false;
+    this.toptext = "the moment"
+    this.bottomtext = "when your code works"
   }
 
   static get styles() {
@@ -143,8 +146,8 @@ export class MyCard extends LitElement {
 
   // put this anywhere on the MyCard class; just above render() is probably good
   openChanged(e) {
-    console.log(e.newState);
-    if (e.newState === "open") {
+    console.log(e);
+    if (e.target.getAttribute("open") !== null) {
       this.fancy = true;
     }
     else {
@@ -158,7 +161,8 @@ export class MyCard extends LitElement {
         <div class="Title">
           <header class="card-title">${this.cardtitle}</header>
         </div>
-        <img class="img" src="${this.imageurl}" width="280">
+        <!-- <img class="img" src="${this.imageurl}" width="280"> -->
+        <meme-maker image-url="${this.imageurl}" top-text="${this.toptext}" bottom-text="${this.bottomtext}" class="img"></meme-maker>
         <details ?open="${this.fancy}" @toggle="${this.openChanged}">
           <summary>Description</summary>
           <div>
@@ -180,7 +184,9 @@ export class MyCard extends LitElement {
       imageurl: { type: String, attribute: "image-url", reflect: true },
       description: {type: String},
       btnlink: {type: String, attribute: "btn-link"},
-      fancy: { type: Boolean, reflect: true }
+      fancy: { type: Boolean, reflect: true },
+      toptext: { type: String, reflect: true, attribute: "top-text" },
+      bottomtext: {type: String, reflect: true, attribute: "bottom-text"}
     };
   }
 }
