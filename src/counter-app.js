@@ -43,12 +43,16 @@ export class CounterApp extends LitElement {
                 margin: 16px;
             }
 
-            .counter-18 {
+            .counter-18-21 {
                 color: royalblue;
             }
+            
+            .counter-min {
+                color: green;
+            }
 
-            .counter-21 {
-                color: royalblue;
+            .counter-max {
+                color: red;
             }
 
             .counter-btn {
@@ -73,25 +77,48 @@ export class CounterApp extends LitElement {
                     ${this.number}
                 </div>
                 <div class="counter-btn-wrapper">
-                    <button class="counter-btn" id="counter-add">+</button>
-                    <button class="counter-btn" id="counter-subtract">-</button>
+                    <button class="counter-btn" id="counter-subtract" ?disabled="${this.countermin === this.number}">-</button>
+                    <button class="counter-btn" id="counter-add" ?disabled="${this.countermax === this.number}">+</button>
                 </div>
             </div>
         `;
 
         this.shadowRoot.querySelector("#counter-add").addEventListener("click", this.onAddButtonClick);
         this.shadowRoot.querySelector("#counter-subtract").addEventListener("click", this.onSubtractButtonClick);
+        this.shadowRoot.querySelector(".counter-card").addEventListener("click", this.numberAt1821);
+        this.shadowRoot.querySelector(".counter-card").addEventListener("click", this.numberAtMinMax);
     }
 
     onAddButtonClick = () => {
-        this.number = Math.min(this.countermax, this.number + 1);
-        this.render();
+        if(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled') !== true) {
+            this.number = Math.min(this.countermax, this.number + 1);
+            console.log('add');
+            this.render();
+        }
+        console.log(this.countermax === this.number);
+        console.log(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled'));
     }
 
     onSubtractButtonClick = () => {
-        // this.number = Math.max(${this.countermin}, this.number - 1);
-        this.number = Math.max(this.countermin, this.number - 1);
-        this.render();
+        if (this.shadowRoot.querySelector('#counter-subtract').getAttribute('disabled') !== true) {
+            this.number = Math.max(this.countermin, this.number - 1);
+            this.render();
+        }
+    }
+
+    numberAt1821 = () => {
+        if(this.number === 18 || this.number === 21) {
+            this.shadowRoot.querySelector('.counter-number').classList.add('counter-18-21');
+        }
+    }
+
+    numberAtMinMax = () => {
+        if(this.number === this.countermin) {
+            this.shadowRoot.querySelector('.counter-number').classList.add('counter-min');
+        }
+        if(this.number === this.countermax) {
+            this.shadowRoot.querySelector('.counter-number').classList.add('counter-max');
+        }
     }
 
     static get properties() {
