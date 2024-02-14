@@ -1,3 +1,5 @@
+import { CounterApp } from "./counter-app";
+
 //duplicate card
 document.querySelector('#duplicate').addEventListener('click', function (event) {
     //No More than 10 cards
@@ -66,3 +68,8 @@ document.querySelector('#delete').addEventListener('click', function (e) {
         cards[cards.length - 1].remove();
     }
 });
+
+// document.getElementsByTagName('counter-app').addEventListener('change', function (e){
+//     var counters = document.getElementsByTagName('counter-app');
+//     console.log(counters.length);
+// })

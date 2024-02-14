@@ -84,19 +84,19 @@ export class CounterApp extends LitElement {
     }
 
     onAddButtonClick = () => {
-        this.number++;
+        this.number = Math.min(this.countermax, this.number + 1);
         this.render();
     }
 
     onSubtractButtonClick = () => {
         // this.number = Math.max(${this.countermin}, this.number - 1);
-        this.number = Math.max(0, this.number - 1);
+        this.number = Math.max(this.countermin, this.number - 1);
         this.render();
     }
 
     static get properties() {
         return {
-            counter: { type: Number, reflect: true, attribute: "counter"},
+            number: { type: Number, reflect: true, attribute: "counter"},
             countermax: { type: Number, reflect: true, attribute: "max"},
             countermin: { type: Number, reflect: true, attribute: "min"},
         };
