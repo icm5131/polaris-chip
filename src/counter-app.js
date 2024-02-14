@@ -77,7 +77,7 @@ export class CounterApp extends LitElement {
                     ${this.number}
                 </div>
                 <div class="counter-btn-wrapper">
-                    <button class="counter-btn" id="counter-subtract" ?disabled="${this.countermin === this.number}">-</button>
+                    <button ?disabled="${this.countermin === this.number}" class="counter-btn" id="counter-subtract">-</button>
                     <button class="counter-btn" id="counter-add" ?disabled="${this.countermax === this.number}">+</button>
                 </div>
             </div>
@@ -90,18 +90,17 @@ export class CounterApp extends LitElement {
     }
 
     onAddButtonClick = () => {
-        if(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled') !== true) {
+        if(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled') == null) {
             this.number = Math.min(this.countermax, this.number + 1);
             console.log('add');
             this.render();
         }
-        console.log(this.countermax === this.number);
-        console.log(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled'));
     }
 
     onSubtractButtonClick = () => {
-        if (this.shadowRoot.querySelector('#counter-subtract').getAttribute('disabled') !== true) {
+        if (this.shadowRoot.querySelector('#counter-subtract').getAttribute('disabled') == null) {
             this.number = Math.max(this.countermin, this.number - 1);
+            console.log('subtract');
             this.render();
         }
     }
