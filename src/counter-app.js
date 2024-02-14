@@ -8,9 +8,13 @@ export class CounterApp extends LitElement {
 
     constructor() {
         super();
-        this.counter = 0;
+
+        this.number = 0;
         this.countermax = 10;
         this.countermin = 0;
+
+        this.attachShadow({ mode: "open"});
+        this.render;
     }
 
     static get styles() {
@@ -31,7 +35,7 @@ export class CounterApp extends LitElement {
                 text-align: center;
             }
 
-            .counter-number-wrapper {
+            .counter-number {
                 border: 2px solid royalblue;
                 border-radius: 8px;
                 background-color: hotpink;
@@ -63,12 +67,10 @@ export class CounterApp extends LitElement {
     }
 
     render() {
-        return html`
+        this.shadowRoot.innerHTML = `
             <div class="counter-card">
-                <div class="counter-number-wrapper">
-                    <p class="counter-number">
-                        ${this.counter}
-                    </p>
+                <div class="counter-number">
+                    ${this.number}
                 </div>
                 <div class="counter-btn-wrapper">
                     <button class="counter-btn" id="counter-add">+</button>
@@ -76,13 +78,27 @@ export class CounterApp extends LitElement {
                 </div>
             </div>
         `;
+
+        this.shadowRoot.querySelector("#counter-add").addEventListener("click", this.onAddButtonClick);
+        this.shadowRoot.querySelector("#counter-subtract").addEventListener("click", this.onSubtractButtonClick);
+    }
+
+    onAddButtonClick = () => {
+        this.number++;
+        this.render();
+    }
+
+    onSubtractButtonClick = () => {
+        // this.number = Math.max(${this.countermin}, this.number - 1);
+        this.number = Math.max(0, this.number - 1);
+        this.render();
     }
 
     static get properties() {
         return {
             counter: { type: Number, reflect: true, attribute: "counter"},
-            countermax: { type: Number, reflect: true, attribute: "counter-max"},
-            countermin: { type: Number, reflect: true, attribute: "counter-min"},
+            countermax: { type: Number, reflect: true, attribute: "max"},
+            countermin: { type: Number, reflect: true, attribute: "min"},
         };
     }
 }
