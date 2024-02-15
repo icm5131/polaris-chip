@@ -1,5 +1,3 @@
-import { CounterApp } from "./counter-app";
-
 //duplicate card
 document.querySelector('#duplicate').addEventListener('click', function (event) {
     //No More than 10 cards

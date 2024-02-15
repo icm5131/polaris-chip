@@ -12,9 +12,6 @@ export class CounterApp extends LitElement {
         this.number = 0;
         this.countermax = 10;
         this.countermin = 0;
-
-        this.attachShadow({ mode: "open"});
-        this.render;
     }
 
     static get styles() {
@@ -22,6 +19,10 @@ export class CounterApp extends LitElement {
             :host {
                 display: inline-flex;
                 flex-wrap: wrap;
+            }
+
+            :host([number="18"]) .counter-number {
+                color: royalblue;
             }
 
             .counter-card {
@@ -43,16 +44,12 @@ export class CounterApp extends LitElement {
                 margin: 16px;
             }
 
-            .counter-18-21 {
-                color: royalblue;
-            }
-            
-            .counter-min {
-                color: green;
+            .max-hit {
+                color: red;
             }
 
-            .counter-max {
-                color: red;
+            .min-hit {
+                color: green;
             }
 
             .counter-btn {
@@ -63,68 +60,89 @@ export class CounterApp extends LitElement {
                 border-radius: 4px;
             }
 
+            :host([number=18]) .counter-btn {
+                color: royalblue;
+            }
+
             .counter-btn:focus,
             .counter-btn:hover {
                 background-color: royalblue;
             }
-        `;
-    }
 
-    render() {
-        this.shadowRoot.innerHTML = `
-            <div class="counter-card">
-                <div class="counter-number">
-                    ${this.number}
-                </div>
-                <div class="counter-btn-wrapper">
-                    <button ?disabled="${this.countermin === this.number}" class="counter-btn" id="counter-subtract">-</button>
-                    <button class="counter-btn" id="counter-add" ?disabled="${this.countermax === this.number}">+</button>
-                </div>
-            </div>
+            button[disabled] {
+                background-color: grey;
+            }
         `;
-
-        this.shadowRoot.querySelector("#counter-add").addEventListener("click", this.onAddButtonClick);
-        this.shadowRoot.querySelector("#counter-subtract").addEventListener("click", this.onSubtractButtonClick);
-        this.shadowRoot.querySelector(".counter-card").addEventListener("click", this.numberAt1821);
-        this.shadowRoot.querySelector(".counter-card").addEventListener("click", this.numberAtMinMax);
     }
 
     onAddButtonClick = () => {
-        if(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled') == null) {
+        //if(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled') == null) {
             this.number = Math.min(this.countermax, this.number + 1);
-            console.log('add');
             this.render();
-        }
+        //}
     }
 
     onSubtractButtonClick = () => {
-        if (this.shadowRoot.querySelector('#counter-subtract').getAttribute('disabled') == null) {
+        //if (this.shadowRoot.querySelector('#counter-subtract').getAttribute('disabled') == null) {
             this.number = Math.max(this.countermin, this.number - 1);
-            console.log('subtract');
             this.render();
-        }
+        //}
     }
 
-    numberAt1821 = () => {
-        if(this.number === 18 || this.number === 21) {
-            this.shadowRoot.querySelector('.counter-number').classList.add('counter-18-21');
+    updated(changedProperties) {
+        if (changedProperties.has('number') && this.number == 21) {
+          // do your testing of the value and make it rain by calling makeItRain
+            this.makeItRain();
         }
+      }
+      
+    makeItRain() {
+        // this is called a dynamic import. It means it won't import the code for confetti until this method is called
+        // the .then() syntax after is because dynamic imports return a Promise object. Meaning the then() code
+        // will only run AFTER the code is imported and available to us
+        import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+            (module) => {
+                // This is a minor timing 'hack'. We know the code library above will import prior to this running
+                // The "set timeout 0" means "wait 1 microtask and run it on the next cycle.
+                // this "hack" ensures the element has had time to process in the DOM so that when we set popped
+                // it's listening for changes so it can react
+                setTimeout(() => {
+                // forcibly set the poppped attribute on something with id confetti
+                // while I've said in general NOT to do this, the confetti container element will reset this
+                // after the animation runs so it's a simple way to generate the effect over and over again
+                this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+            }, 0);
+          }
+        );
     }
 
-    numberAtMinMax = () => {
-        if(this.number === this.countermin) {
-            this.shadowRoot.querySelector('.counter-number').classList.add('counter-min');
-        }
-        if(this.number === this.countermax) {
-            this.shadowRoot.querySelector('.counter-number').classList.add('counter-max');
-        }
+    render() {
+        return html `
+            <confetti-container id="confetti">
+                <div class="counter-card">
+                    <div class="counter-number ${this.number === this.countermax ? 'max-hit' : ''}
+                        ${this.number === this.countermin ? 'min-hit' : ''}"
+                    >
+                        ${this.number}
+                    </div>
+                    <div class="counter-btn-wrapper">
+                        <button class="counter-btn" id="counter-subtract" 
+                            @click="${this.onSubtractButtonClick}" ?disabled="${this.countermin === this.number}"
+                        >-</button>
+                        <button class="counter-btn" id="counter-add" 
+                            @click="${this.onAddButtonClick}" ?disabled="${this.countermax === this.number}"
+                        >+</button>
+                    </div>
+                </div>
+            </confetti-container>
+        `;
     }
 
     static get properties() {
         return {
-            number: { type: Number, reflect: true, attribute: "counter"},
-            countermax: { type: Number, reflect: true, attribute: "max"},
-            countermin: { type: Number, reflect: true, attribute: "min"},
+            number: { type: Number, reflect: true},
+            countermax: { type: Number, reflect: true},
+            countermin: { type: Number, reflect: true},
         };
     }
 }
