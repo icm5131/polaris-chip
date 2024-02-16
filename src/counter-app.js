@@ -21,7 +21,11 @@ export class CounterApp extends LitElement {
                 flex-wrap: wrap;
             }
 
-            :host([number="18"]) .counter-number {
+            :host([number="18"]) .counter-btn {
+                color: royalblue;
+            }
+
+            :host([number="21"]) .counter-btn {
                 color: royalblue;
             }
 
