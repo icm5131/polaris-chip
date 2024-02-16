@@ -25,6 +25,10 @@ export class CounterApp extends LitElement {
                 color: royalblue;
             }
 
+            :host([number="21"]) .counter-number {
+                color: royalblue;
+            }
+
             .counter-card {
                 width: 200px;
                 padding: 16px;
@@ -58,10 +62,6 @@ export class CounterApp extends LitElement {
                 background-color: hotpink;
                 border: 1px solid royalblue;
                 border-radius: 4px;
-            }
-
-            :host([number=18]) .counter-btn {
-                color: royalblue;
             }
 
             .counter-btn:focus,
