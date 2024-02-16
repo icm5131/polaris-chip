@@ -21,11 +21,7 @@ export class CounterApp extends LitElement {
                 flex-wrap: wrap;
             }
 
-            :host([number="18"]) .counter-btn {
-                color: royalblue;
-            }
-
-            :host([number="21"]) .counter-btn {
+            :host([number="18"]) .counter-number {
                 color: royalblue;
             }
 
@@ -48,7 +44,7 @@ export class CounterApp extends LitElement {
                 border: 2px solid royalblue;
                 border-radius: 8px;
                 background-color: hotpink;
-                font-size: 64px;
+                font-size: 128px;
                 margin: 16px;
             }
 
@@ -74,7 +70,7 @@ export class CounterApp extends LitElement {
             }
 
             button[disabled] {
-                background-color: grey;
+                display: none;
             }
         `;
     }
@@ -122,8 +118,8 @@ export class CounterApp extends LitElement {
 
     render() {
         return html `
-            <confetti-container id="confetti">
-                <div class="counter-card">
+            <div class="counter-card">
+                <confetti-container id="confetti">
                     <div class="counter-number ${this.number === this.countermax ? 'max-hit' : ''}
                         ${this.number === this.countermin ? 'min-hit' : ''}"
                     >
@@ -137,8 +133,9 @@ export class CounterApp extends LitElement {
                             @click="${this.onAddButtonClick}" ?disabled="${this.countermax === this.number}"
                         >+</button>
                     </div>
-                </div>
-            </confetti-container>
+                </confetti-container>
+            </div>
+            
         `;
     }
 
