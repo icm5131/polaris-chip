@@ -37,6 +37,7 @@ export class MyCard extends LitElement {
         box-shadow: 10px 5px 5px darkslateblue;
         width: 416px;
         margin: 32px;
+        transition: transform 0.3s ease;
       }
 
       .link {
