@@ -69,8 +69,9 @@ export class CounterApp extends LitElement {
                 background-color: royalblue;
             }
 
-            button[disabled] {
-                display: none;
+            button:disabled {
+                background-color: grey;
+                cursor: not-allowed;
             }
         `;
     }
