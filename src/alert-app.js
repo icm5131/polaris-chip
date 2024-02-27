@@ -7,52 +7,114 @@ import { LitElement, html, css } from 'lit';
 
 export class AlertApp extends LitElement {
 
-    static get tag() {
-        return 'alert-app';
-    }
+  static get tag() {
+    return 'alert-app';
+  }
 
-    constructor() {
-        super();
+  constructor() {
+    super();
 
-        this.alertMessage = "This is the message.";
-    }
+    this.date = "00/00/00";
+    this.alertMessage = "This is the message.";
+    this.open = false;
+  }
 
-    static get styles() {
-        return css`
+  static get styles() {
+    return css`
+          :host([notice]) .alert-message{
+            background-color: lightblue;
+          }
+
+          :host([notice]) .toggle{
+            background-color: darkblue;
+          }
+          
+          :host([notice]) .date-time{
+            background-color: darkblue;
+          }
+
+          :host([warning]) .alert-message{
+            background-color: gold;
+          }
+
+          :host([warning]) .toggle{
+            background-color: darkgoldenrod;
+          }
+          
+          :host([warning]) .date-time{
+            background-color: darkgoldenrod;
+          }
+
+          :host([alert]) .alert-message{
+            background-color: lightcoral;
+          }
+
+          :host([alert]) .toggle{
+            background-color: darkred;
+          }
+          
+          :host([alert]) .date-time{
+            background-color: darkred;
+          }
+
+          :host([])
+
           .alert-wrapper {
-            margin: 32px;
-            padding: 8px;
+            display: flex;
+            width: 100%;
+            margin: 0px;
           }
 
           .date-time {
-            background-color: darkorange;
-            color: lightgray;
+            background-color: darkgoldenrod;
+            color: white;
             padding: 8px;
+            width: 10%;
+            flex: 1;
+            margin: 0px;
           }
 
           .alert-message {
-            background-color: orange;
+            background-color: gold;
             padding: 8px;
+            width: 80%;
+            margin: 0px;
+          }
+
+          .toggle {
+            color: white;
+            background-color: darkgoldenrod;
+            padding: 8px;
+            width: 10%;
+            margin: 0px;
           }
     `;
-    }
+  }
 
+  toggleAlert() {
+    this.open = !this.open;
+  }
 
-    render() {
-        return html`
+  render() {
+    return html`
           <div class="alert-wrapper">
-            <div class="date-time">0000 monday 1 2024</div>
-            <div class="alert-message">${this.alertMessage}</div>
-            <div class="close"></div>
+            <div class="date-time">${this.date}</div>
+            <div class="alert-message">
+              <slot>${this.alertMessage}</slot>
+            </div>
+            </details>
+            <div class="toggle" ?open="${this.open}" @click="${this.toggleAlert}">X</div>
           </div>
     `;
-    }
+  }
 
-    static get properties() {
-        return {
-            alertMessage: { type: String, attribute: "alert-message"},
-        };
-    }
+  static get properties() {
+    return {
+      date: { type: String },
+      alertMessage: { type: String, attribute: "alert-message" },
+      open: { type: Boolean },
+    };
+  }
 }
 
 globalThis.customElements.define(AlertApp.tag, AlertApp);
