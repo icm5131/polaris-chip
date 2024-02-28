@@ -17,10 +17,13 @@ export class AlertApp extends LitElement {
     this.date = "00/00/00";
     this.alertMessage = "This is the message.";
     this.open = false;
+    this.alertTitle = "Attention!";
   }
 
   static get styles() {
     return css`
+
+      /* Base alert styles */
       .alert-wrapper {
         display: flex;
         width: 100%;
@@ -52,6 +55,14 @@ export class AlertApp extends LitElement {
         margin: 0px;
       }
 
+      .alert-title {
+        background-color: gold;
+        padding: 8px;
+        width: 40%;
+        margin: 0px;
+      }
+
+      /* Varied Alert types */
       :host([notice]) .alert-message {
         background-color: lightblue;
       }
@@ -62,6 +73,10 @@ export class AlertApp extends LitElement {
       
       :host([notice]) .date-time {
         background-color: darkblue;
+      }
+      
+      :host([notice]) .alert-title {
+        background-color: lightblue;
       }
 
       :host([warning]) .alert-message {
@@ -88,6 +103,7 @@ export class AlertApp extends LitElement {
         background-color: darkred;
       }
 
+      /* open vs close elements */
       :host([open]) .alert-message {
         display: flex;
         width: 80%;
@@ -115,14 +131,14 @@ export class AlertApp extends LitElement {
           <div class="alert-wrapper">
             <div class="date-time">${this.date}</div>
             <div class="alert-message" ?open="${this.open}">
-              <slot>${this.alertMessage}</slot>
+              ${this.alertMessage}
             </div>
-            <div class="alert-title">
-              
+            <div class="alert-title" ?open="${this.open}">
+              ${this.alertTitle}
             </div>
             </details>
             <div class="toggle" ?open="${this.open}" @click="${this.toggleAlert}">
-              X
+              ${this.open ? "Open" : "Close"} Alert
               <!-- <button id="toggleAlert" class="alertbtn"></button> -->
             </div>
           </div>
@@ -131,9 +147,10 @@ export class AlertApp extends LitElement {
 
   static get properties() {
     return {
-      date: { type: String, reflect: true },
+      date: { type: String},
       alertMessage: { type: String, attribute: "alert-message", reflect: true },
       open: { type: Boolean, reflect: true },
+      alertTitle: { type: String, attribute: "alert-title" }
     };
   }
 }
