@@ -28,96 +28,109 @@ export class AlertApp extends LitElement {
         display: flex;
         width: 100%;
         margin: 0px;
+        background-color: darkgrey;
       }
 
       .date-time {
-        background-color: darkgoldenrod;
+        display: none;
         color: white;
-        padding: 8px;
-        width: 30%;
+        padding: 32px;
         flex: 1;
         margin: 0px;
       }
 
       .alert-message {
         display: none;
-        background-color: gold;
-        padding: 8px;
-        width: 40%;
+        padding: 32px;
         margin: 0px;
+        transform: skew(-20deg);
       }
 
       .toggle {
+        display: none;
         color: white;
-        background-color: darkgoldenrod;
-        padding: 8px;
-        width: 30%;
+        padding: 32px;
         margin: 0px;
       }
 
       .alert-title {
-        background-color: gold;
-        padding: 8px;
-        width: 40%;
+        text-align: center;
+        background-color: white;
+        padding: 32px;
+        width: 100%;
         margin: 0px;
       }
 
-      /* Varied Alert types */
-      :host([notice]) .alert-message {
-        background-color: lightblue;
+      .alert-wrapper .message-wrap {
+        display: none;
+        transform: skew(20deg);
+        background-color: white;
       }
 
-      :host([notice]) .toggle {
+      /* Varied Alert types */
+      /* Notices */
+      :host([notice]) .alert-wrapper {
         background-color: darkblue;
       }
-      
-      :host([notice]) .date-time {
-        background-color: darkblue;
-      }
-      
+
       :host([notice]) .alert-title {
         background-color: lightblue;
       }
 
-      :host([warning]) .alert-message {
+      :host([notice]) .message-wrap {
+        background-color: lightblue;
+      }
+
+      /* Warnings */
+      :host([warning]) .alert-wrapper {
+        background-color: darkgoldenrod;
+      }
+
+      :host([warning]) .alert-title {
         background-color: gold;
       }
 
-      :host([warning]) .toggle {
-        background-color: darkgoldenrod;
-      }
-      
-      :host([warning]) .date-time {
-        background-color: darkgoldenrod;
+      :host([warning]) .message-wrap {
+        background-color: gold;
       }
 
-      :host([alert]) .alert-message {
+      /* Alerts */
+      :host([alert]) .alert-wrapper {
+        background-color: darkred;
+      }
+
+      :host([alert]) .alert-title {
         background-color: lightcoral;
       }
 
-      :host([alert]) .toggle {
-        background-color: darkred;
-      }
-      
-      :host([alert]) .date-time {
-        background-color: darkred;
+      :host([alert]) .message-wrap {
+        background-color: lightcoral;
       }
 
       /* open vs close elements */
       :host([open]) .alert-message {
         display: flex;
-        width: 80%;
+        width: 70%;
+      }
+
+      :host([open]) .message-wrap {
+        display: flex;
+        width: 70%;
       }
 
       :host([open]) .date-time {
-        width: 10%;
+        display: flex;
+        width: 15%;
       }
 
       :host([open]) .toggle {
-        width: 10%;
+        display: flex;
+        width: 15%;
       }
 
-      :host() .
+      :host([open]) .alert-title {
+        display: none;
+      }
     `;
   }
 
@@ -129,17 +142,17 @@ export class AlertApp extends LitElement {
   render() {
     return html`
           <div class="alert-wrapper">
-            <div class="date-time">${this.date}</div>
-            <div class="alert-message" ?open="${this.open}">
-              ${this.alertMessage}
-            </div>
-            <div class="alert-title" ?open="${this.open}">
+            <div class="alert-title" ?open="${this.open}" @click="${this.toggleAlert}">
               ${this.alertTitle}
             </div>
-            </details>
+            <div class="date-time">${this.date}</div>
+            <div class="message-wrap" ?open="${this.open}">
+              <div class="alert-message" ?open="${this.open}">
+                ${this.alertMessage}
+              </div>
+            </div>
             <div class="toggle" ?open="${this.open}" @click="${this.toggleAlert}">
-              ${this.open ? "Open" : "Close"} Alert
-              <!-- <button id="toggleAlert" class="alertbtn"></button> -->
+              X ${this.open ? "Close" : "Open"} Alert
             </div>
           </div>
     `;
