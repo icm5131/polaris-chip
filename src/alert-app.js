@@ -15,9 +15,17 @@ export class AlertApp extends LitElement {
     super();
 
     this.date = "00/00/00";
-    this.alertMessage = "This is the message.";
-    this.open = false;
+
+    this.alertMessage = "SOMETHING IS GOING ON READ THIS FIRST WHILE YOU ARE HERE";
+
+    this.open = true;
+    if (localStorage.getItem('alert-app-open-state') == "false") {
+      this.open = false;
+    }
+
     this.alertTitle = "Attention!";
+
+    this.sticky = false;
   }
 
   static get styles() {
@@ -26,9 +34,9 @@ export class AlertApp extends LitElement {
       /* Base alert styles */
       .alert-wrapper {
         display: flex;
-        width: 100%;
+        width: 100vw;
         margin: 0px;
-        background-color: darkgrey;
+        background-color: var(--alertBgColor);
       }
 
       .date-time {
@@ -57,14 +65,18 @@ export class AlertApp extends LitElement {
         text-align: center;
         background-color: white;
         padding: 32px;
-        width: 100%;
+        width: 100vw;
         margin: 0px;
       }
 
       .alert-wrapper .message-wrap {
         display: none;
         transform: skew(20deg);
-        background-color: white;
+        background-color: var(--alertMsgColor);
+      }
+
+      :host([sticky]) {
+        position: fixed;
       }
 
       /* Varied Alert types */
@@ -110,22 +122,32 @@ export class AlertApp extends LitElement {
       /* open vs close elements */
       :host([open]) .alert-message {
         display: flex;
-        width: 70%;
       }
 
       :host([open]) .message-wrap {
         display: flex;
-        width: 70%;
+        width: 70vw;
+      }
+
+      :host([open]) .message-wrap::before {
+        content: " ";
+        width: 0;
+        height: 0;
+        position: absolute;
+        bottom: 2rem;
+        left: -2rem;
+        border-left: 35px solid transparent;
+        border-right: 0px solid transparent;
       }
 
       :host([open]) .date-time {
         display: flex;
-        width: 15%;
+        width: 15vw;
       }
 
       :host([open]) .toggle {
         display: flex;
-        width: 15%;
+        width: 15vw;
       }
 
       :host([open]) .alert-title {
@@ -136,8 +158,10 @@ export class AlertApp extends LitElement {
 
   toggleAlert() {
     this.open = !this.open;
-    console.log(this.open);
+    localStorage.setItem("alert-app-open-state", this.open);
   }
+
+
 
   render() {
     return html`
@@ -147,6 +171,7 @@ export class AlertApp extends LitElement {
             </div>
             <div class="date-time">${this.date}</div>
             <div class="message-wrap" ?open="${this.open}">
+              
               <div class="alert-message" ?open="${this.open}">
                 ${this.alertMessage}
               </div>
@@ -160,7 +185,7 @@ export class AlertApp extends LitElement {
 
   static get properties() {
     return {
-      date: { type: String},
+      date: { type: String },
       alertMessage: { type: String, attribute: "alert-message", reflect: true },
       open: { type: Boolean, reflect: true },
       alertTitle: { type: String, attribute: "alert-title" }
