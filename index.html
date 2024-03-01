@@ -20,6 +20,8 @@
       padding: 0;
       font-family: sans-serif;
       background-color: lightpink;
+      height: 1000px;
+      overflow: scroll;
     }
 
     polaris-chip {
@@ -31,11 +33,10 @@
 
 <body>
   <div class="alerts">
-    
     <alert-app></alert-app>
     <alert-app notice></alert-app>
     <alert-app warning></alert-app>
-    <alert-app alert></alert-app>
+    <alert-app alert sticky></alert-app>
   </div>
 
   <h1>polaris-chip</h1>
@@ -67,7 +68,24 @@
       top-text="you when you spent all day debugging" bottom-text="and the bug was a semicolon">
       <p>This meme is <strong>truly relatable</strong> meme by all programers.</p>
     </my-card>
+    <my-card fancy>
+      <p>This is the <strong>highest tier</strong> of meme when it comes to relatability and humour.</p>
+    </my-card>
+    <my-card
+      image-url="https://media.istockphoto.com/id/538665020/photo/internet-meme-why-you-no-rage-face-3d-illustration.jpg?s=612x612&w=0&k=20&c=5D_g8Jy8kqg5Op2bb4RvcH8_6y0HGPqt29TKDrEqLyM="
+      top-text="you when you spent all day debugging" bottom-text="and the bug was a semicolon">
+      <p>This meme is <strong>truly relatable</strong> meme by all programers.</p>
+    </my-card>
+    <my-card fancy>
+      <p>This is the <strong>highest tier</strong> of meme when it comes to relatability and humour.</p>
+    </my-card>
+    <my-card
+      image-url="https://media.istockphoto.com/id/538665020/photo/internet-meme-why-you-no-rage-face-3d-illustration.jpg?s=612x612&w=0&k=20&c=5D_g8Jy8kqg5Op2bb4RvcH8_6y0HGPqt29TKDrEqLyM="
+      top-text="you when you spent all day debugging" bottom-text="and the bug was a semicolon">
+      <p>This meme is <strong>truly relatable</strong> meme by all programers.</p>
+    </my-card>
   </div>
+  <div class="spacer"></div>
 
   <!-- this is what is bringing in the definition for this tag -->
   <script type="module" src="./src/polaris-chip.js"></script>

@@ -75,8 +75,10 @@ export class AlertApp extends LitElement {
         background-color: var(--alertMsgColor);
       }
 
-      :host([sticky]) {
-        position: fixed;
+      :host([sticky]) .fixed{
+        position: sticky;
+        top: 0px;
+        z-index: 100px;
       }
 
       /* Varied Alert types */
@@ -109,8 +111,6 @@ export class AlertApp extends LitElement {
       /* Alerts */
       :host([alert]) .alert-wrapper {
         background-color: darkred;
-        position: fixed;
-        z-index: 100;
       }
 
       :host([alert]) .alert-title {
@@ -131,7 +131,7 @@ export class AlertApp extends LitElement {
         width: 70vw;
       }
 
-      .message-wrap::before {
+      /* .message-wrap::before {
         content: " ";
         width: 0;
         height: 0;
@@ -140,7 +140,7 @@ export class AlertApp extends LitElement {
         left: -2rem;
         border-left: 35px solid transparent;
         border-right: 0px solid transparent;
-      }
+      } */
 
       :host([open]) .date-time {
         display: flex;
@@ -162,17 +162,6 @@ export class AlertApp extends LitElement {
     this.open = !this.open;
     localStorage.setItem("alert-app-open-state", this.open);
   }
-
-/*   $(window).scroll(function(e){ 
-    var $el = $('.fixedElement'); 
-    var isPositionFixed = ($el.css('position') == 'fixed');
-    if ($(this).scrollTop() > 200 && !isPositionFixed){ 
-      $el.css({'position': 'fixed', 'top': '0px'}); 
-    }
-    if ($(this).scrollTop() < 200 && isPositionFixed){
-      $el.css({'position': 'static', 'top': '0px'}); 
-    } 
-  }); */
 
   render() {
     return html`
