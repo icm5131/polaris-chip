@@ -109,6 +109,8 @@ export class AlertApp extends LitElement {
       /* Alerts */
       :host([alert]) .alert-wrapper {
         background-color: darkred;
+        position: fixed;
+        z-index: 100;
       }
 
       :host([alert]) .alert-title {
@@ -129,7 +131,7 @@ export class AlertApp extends LitElement {
         width: 70vw;
       }
 
-      :host([open]) .message-wrap::before {
+      .message-wrap::before {
         content: " ";
         width: 0;
         height: 0;
@@ -161,7 +163,16 @@ export class AlertApp extends LitElement {
     localStorage.setItem("alert-app-open-state", this.open);
   }
 
-
+/*   $(window).scroll(function(e){ 
+    var $el = $('.fixedElement'); 
+    var isPositionFixed = ($el.css('position') == 'fixed');
+    if ($(this).scrollTop() > 200 && !isPositionFixed){ 
+      $el.css({'position': 'fixed', 'top': '0px'}); 
+    }
+    if ($(this).scrollTop() < 200 && isPositionFixed){
+      $el.css({'position': 'static', 'top': '0px'}); 
+    } 
+  }); */
 
   render() {
     return html`
