@@ -14,7 +14,7 @@ export class AlertApp extends LitElement {
   constructor() {
     super();
 
-    this.date = "00/00/00";
+    this.alertDate = "00/00/00";
 
     this.alertMessage = "SOMETHING IS GOING ON READ THIS FIRST WHILE YOU ARE HERE";
 
@@ -31,12 +31,18 @@ export class AlertApp extends LitElement {
   static get styles() {
     return css`
 
+      button {
+        border: hidden;
+        font-size: 16px;
+        background-color: transparent
+      }
+
       /* Base alert styles */
       .alert-wrapper {
         display: flex;
         width: 100vw;
         margin: 0px;
-        background-color: var(--alertBgColor);
+        background-color: var(--alertDefaultBgColor);
       }
 
       .date-time {
@@ -55,10 +61,11 @@ export class AlertApp extends LitElement {
       }
 
       .toggle {
-        display: none;
-        color: white;
+        display: flex;
+        color: black;
         padding: 32px;
         margin: 0px;
+        background-color: white;
       }
 
       .alert-title {
@@ -67,18 +74,30 @@ export class AlertApp extends LitElement {
         padding: 32px;
         width: 100vw;
         margin: 0px;
+        font-size: 32px;
+      }
+
+      .alert-icon {
+        height: 3.35rem;
+        position: relative;
+        stroke: black;
       }
 
       .alert-wrapper .message-wrap {
         display: none;
         transform: skew(20deg);
-        background-color: var(--alertMsgColor);
+        background-color: var(--alertDefaultMsgColor);
       }
 
       :host([sticky]) .fixed{
         position: sticky;
         top: 0px;
         z-index: 100px;
+      }
+
+      .toggle-button:focus,
+      .toggle-button:hover {
+        border: 2px dashed black;
       }
 
       /* Varied Alert types */
@@ -95,6 +114,11 @@ export class AlertApp extends LitElement {
         background-color: lightblue;
       }
 
+      :host([notice]) .toggle {
+        background-color: lightblue;
+        color: black;
+      }
+
       /* Warnings */
       :host([warning]) .alert-wrapper {
         background-color: darkgoldenrod;
@@ -108,6 +132,11 @@ export class AlertApp extends LitElement {
         background-color: gold;
       }
 
+      :host([warning]) .toggle {
+        background-color: gold;
+        color: black;
+      }
+
       /* Alerts */
       :host([alert]) .alert-wrapper {
         background-color: darkred;
@@ -119,6 +148,11 @@ export class AlertApp extends LitElement {
 
       :host([alert]) .message-wrap {
         background-color: lightcoral;
+      }
+
+      :host([alert]) .toggle {
+        background-color: lightcoral;
+        color: black;
       }
 
       /* open vs close elements */
@@ -150,10 +184,20 @@ export class AlertApp extends LitElement {
       :host([open]) .toggle {
         display: flex;
         width: 15vw;
+        background-color: transparent;
+      }
+
+      :host([open]) .toggle .toggle-button {
+        color: white;
       }
 
       :host([open]) .alert-title {
         display: none;
+      }
+
+      :host([sticky]) .alert-wrapper {
+        position: sticky;
+        top: 0;
       }
     `;
   }
@@ -165,30 +209,44 @@ export class AlertApp extends LitElement {
 
   render() {
     return html`
-          <div class="alert-wrapper">
-            <div class="alert-title" ?open="${this.open}" @click="${this.toggleAlert}">
-              ${this.alertTitle}
-            </div>
-            <div class="date-time">${this.date}</div>
-            <div class="message-wrap" ?open="${this.open}">
-              
-              <div class="alert-message" ?open="${this.open}">
-                ${this.alertMessage}
-              </div>
-            </div>
-            <div class="toggle" ?open="${this.open}" @click="${this.toggleAlert}">
-              X ${this.open ? "Close" : "Open"} Alert
-            </div>
+      <div class="alert-wrapper">
+        <div class="alert-title" ?open="${this.open}" @click="${this.toggleAlert}">
+          <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 82 82">
+            <g transform="translate(-350.099 -428.714)">
+              <g transform="translate(350.099 428.714)" fill="none" stroke-width="6">
+                <circle cx="41" cy="41" r="41" stroke="none"></circle>
+                <circle cx="41" cy="41" r="38" fill="none"></circle>
+               </g>
+               <g transform="translate(384.41 448.566)">
+                <rect width="10.381" height="7.786" transform="translate(0.919 34.336)"></rect>
+                <path d="M6520.672,2327.554h-5.854l-3.21-23.669V2299.2h11.81v4.681Z" transform="translate(-6511.607 -2299.203)"></path>
+              </g>
+            </g>
+          </svg>
+          ${this.alertTitle}
+        </div>
+        <div class="date-time">${this.alertDate}</div>
+        <div class="message-wrap" ?open="${this.open}">      
+          <div class="alert-message" ?open="${this.open}">
+            <slot>${this.alertMessage}</slot>
           </div>
+        </div>
+        <div class="toggle" ?open="${this.open}" @click="${this.toggleAlert}">
+          <button class="toggle-button">
+            ${this.open ? "X Close" : "^ Open"} Alert
+          </button>
+        </div>
+      </div>
     `;
   }
 
   static get properties() {
     return {
-      date: { type: String },
+      alertDate: { type: String, attribute: "alert-date", reflect: true },
       alertMessage: { type: String, attribute: "alert-message", reflect: true },
       open: { type: Boolean, reflect: true },
-      alertTitle: { type: String, attribute: "alert-title" }
+      alertTitle: { type: String, attribute: "alert-title" },
+      sticky: { type: Boolean, reflect: true }
     };
   }
 }
