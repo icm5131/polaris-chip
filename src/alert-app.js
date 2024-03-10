@@ -76,37 +76,42 @@ export class AlertApp extends LitElement {
       .date-time {
         display: none;
         color: white;
-        padding: 32px;
+        padding: 16px;
         flex: 1;
         margin: 0px;
         font-size: 24px;
+        font-weight: bold;
       }
 
       .alert-message {
         display: none;
-        padding: 32px;
+        padding: 16px;
         margin: 0px;
         transform: skew(-20deg);
       }
 
       .toggle {
         display: flex;
-        padding: 32px;
+        padding: 16px;
         margin: 0px;
         background-color: var(--lightBg);
+      }
+
+      .toggle-button{
+        font-weight: bold;
       }
 
       .alert-title {
         text-align: center;
         background-color: var(--lightBg);
-        padding: 32px;
+        padding: 8px;
         width: 100vw;
         margin: 0px;
         font-size: 32px;
       }
 
       .alert-icon {
-        height: 3.35rem;
+        height: 2.5rem;
         position: relative;
         stroke: black;
         padding: 16px;
@@ -210,13 +215,12 @@ export class AlertApp extends LitElement {
           transform: skew(0deg);
         }
 
-        :host([open]) .date-time {
-          width: 50vw;
+        :host([open]) .toggle {
+          width: 100vw;
         }
 
-        :host([open]) .toggle {
-          width: 50vw;
-          background-color: transparent;
+        :host([open]) .date-time {
+          width: 100vw;
         }
       }
     `;
