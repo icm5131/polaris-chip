@@ -176,16 +176,12 @@ export class AlertApp extends LitElement {
         }
 
         .alert-title {
-          font-size: 16px;
+          font-size: 24px;
           padding: 8px;
         }
 
         .toggle {
           padding: 8px;
-        }
-
-        .alert-icon {
-          transform: scale(50%);
         }
 
         .toggle-button {
