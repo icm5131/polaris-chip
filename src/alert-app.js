@@ -89,6 +89,18 @@ export class AlertApp extends LitElement {
         background-color: var(--alertDefaultMsgColor);
       }
 
+      .message-wrap:before {
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        bottom: 2rem;
+        left: -2rem;
+        border-left: 35px solid transparent;
+        border-right: 0px solid transparent;
+        border-bottom: 25px solid var(--alertDefaultMsgColor);
+      }
+
       :host([sticky]) .fixed{
         position: sticky;
         top: 0px;
@@ -117,6 +129,10 @@ export class AlertApp extends LitElement {
       :host([notice]) .toggle {
         background-color: lightblue;
         color: black;
+      }
+
+      :host([notice]) .alert-wrapper:before {
+        border-bottom: 25px solid lightblue;
       }
 
       /* Warnings */
@@ -164,17 +180,6 @@ export class AlertApp extends LitElement {
         display: flex;
         width: 70vw;
       }
-
-      /* .message-wrap::before {
-        content: " ";
-        width: 0;
-        height: 0;
-        position: absolute;
-        bottom: 2rem;
-        left: -2rem;
-        border-left: 35px solid transparent;
-        border-right: 0px solid transparent;
-      } */
 
       :host([open]) .date-time {
         display: flex;
