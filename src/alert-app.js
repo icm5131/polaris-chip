@@ -26,14 +26,42 @@ export class AlertApp extends LitElement {
     this.alertTitle = "Attention!";
 
     this.sticky = false;
+
+    this.status = "none";
   }
 
   static get styles() {
     return css`
+      :host([status="none"]) {
+        --darkBg: darkgrey;
+        --lightBg: white;
+        --textColor: white;
+      }
+      /* Varied Alert types */
+      /* Notices */
+      :host([status="notice"]) {
+        --darkBg: darkblue;
+        --lightBg: lightblue;
+        --textColor: black;
+      }
+
+      /* Warnings */
+      :host([status="warning"]) {
+        --darkBg: darkgoldenrod;
+        --lightBg: gold;
+        --textColor: black;
+      }
+
+      /* Alerts */
+      :host([status="alert"]) {
+        --darkBg: darkred;
+        --lightBg: lightcoral;
+        --textColor: black;
+      }
 
       button {
         border: hidden;
-        font-size: 16px;
+        font-size: 1vw;
         background-color: transparent
       }
 
@@ -42,7 +70,7 @@ export class AlertApp extends LitElement {
         display: flex;
         width: 100vw;
         margin: 0px;
-        background-color: var(--alertDefaultBgColor);
+        background-color: var(--darkBg);
       }
 
       .date-time {
@@ -51,6 +79,7 @@ export class AlertApp extends LitElement {
         padding: 32px;
         flex: 1;
         margin: 0px;
+        font-size: 2vw;
       }
 
       .alert-message {
@@ -62,31 +91,31 @@ export class AlertApp extends LitElement {
 
       .toggle {
         display: flex;
-        color: black;
         padding: 32px;
         margin: 0px;
-        background-color: white;
+        background-color: var(--lightBg);
       }
 
       .alert-title {
         text-align: center;
-        background-color: white;
+        background-color: var(--lightBg);
         padding: 32px;
         width: 100vw;
         margin: 0px;
-        font-size: 32px;
+        font-size: 2vw;
       }
 
       .alert-icon {
         height: 3.35rem;
         position: relative;
         stroke: black;
+        padding: 16px;
       }
 
       .alert-wrapper .message-wrap {
         display: none;
         transform: skew(20deg);
-        background-color: var(--alertDefaultMsgColor);
+        background-color: var(--lightBg);
       }
 
       .message-wrap:before {
@@ -98,77 +127,12 @@ export class AlertApp extends LitElement {
         left: -2rem;
         border-left: 35px solid transparent;
         border-right: 0px solid transparent;
-        border-bottom: 25px solid var(--alertDefaultMsgColor);
-      }
-
-      :host([sticky]) .fixed{
-        position: sticky;
-        top: 0px;
-        z-index: 100px;
+        border-bottom: 25px solid var(--lightBg);
       }
 
       .toggle-button:focus,
       .toggle-button:hover {
         border: 2px dashed black;
-      }
-
-      /* Varied Alert types */
-      /* Notices */
-      :host([notice]) .alert-wrapper {
-        background-color: darkblue;
-      }
-
-      :host([notice]) .alert-title {
-        background-color: lightblue;
-      }
-
-      :host([notice]) .message-wrap {
-        background-color: lightblue;
-      }
-
-      :host([notice]) .toggle {
-        background-color: lightblue;
-        color: black;
-      }
-
-      :host([notice]) .alert-wrapper:before {
-        border-bottom: 25px solid lightblue;
-      }
-
-      /* Warnings */
-      :host([warning]) .alert-wrapper {
-        background-color: darkgoldenrod;
-      }
-
-      :host([warning]) .alert-title {
-        background-color: gold;
-      }
-
-      :host([warning]) .message-wrap {
-        background-color: gold;
-      }
-
-      :host([warning]) .toggle {
-        background-color: gold;
-        color: black;
-      }
-
-      /* Alerts */
-      :host([alert]) .alert-wrapper {
-        background-color: darkred;
-      }
-
-      :host([alert]) .alert-title {
-        background-color: lightcoral;
-      }
-
-      :host([alert]) .message-wrap {
-        background-color: lightcoral;
-      }
-
-      :host([alert]) .toggle {
-        background-color: lightcoral;
-        color: black;
       }
 
       /* open vs close elements */
@@ -203,6 +167,39 @@ export class AlertApp extends LitElement {
       :host([sticky]) .alert-wrapper {
         position: sticky;
         top: 0;
+        z-index: 100;
+      }
+
+      @media (max-width: 800px) {
+        .message-wrap:before {
+          display:none;
+        }
+
+        :host([open]) .alert-wrapper{
+          display: block;
+        }
+
+        :host([open]) .alert-message {
+          transform: skew(0deg);
+        }
+
+        :host([open]) .message-wrap {
+          width: 100vw;
+          transform: skew(0deg);
+        }
+
+        :host([open]) .date-time {
+          width: 50vw;
+        }
+
+        :host([open]) .toggle {
+          width: 50vw;
+          background-color: transparent;
+        }
+
+        .alert-icon {
+          transform: scale(60%);
+        }
       }
     `;
   }
@@ -233,6 +230,18 @@ export class AlertApp extends LitElement {
         <div class="date-time">${this.alertDate}</div>
         <div class="message-wrap" ?open="${this.open}">      
           <div class="alert-message" ?open="${this.open}">
+            <svg class="alert-icon" xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 82 82">
+              <g transform="translate(-350.099 -428.714)">
+                <g transform="translate(350.099 428.714)" fill="none" stroke-width="6">
+                  <circle cx="41" cy="41" r="41" stroke="none"></circle>
+                  <circle cx="41" cy="41" r="38" fill="none"></circle>
+                </g>
+                <g transform="translate(384.41 448.566)">
+                  <rect width="10.381" height="7.786" transform="translate(0.919 34.336)"></rect>
+                  <path d="M6520.672,2327.554h-5.854l-3.21-23.669V2299.2h11.81v4.681Z" transform="translate(-6511.607 -2299.203)"></path>
+                </g>
+              </g>
+            </svg>
             <slot>${this.alertMessage}</slot>
           </div>
         </div>
@@ -251,7 +260,8 @@ export class AlertApp extends LitElement {
       alertMessage: { type: String, attribute: "alert-message", reflect: true },
       open: { type: Boolean, reflect: true },
       alertTitle: { type: String, attribute: "alert-title" },
-      sticky: { type: Boolean, reflect: true }
+      sticky: { type: Boolean, reflect: true },
+      status: { type: String, reflect: true }
     };
   }
 }
