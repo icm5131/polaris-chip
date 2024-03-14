@@ -79,14 +79,12 @@ export class CounterApp extends LitElement {
     onAddButtonClick = () => {
         //if(this.shadowRoot.querySelector('#counter-add').getAttribute('disabled') == null) {
             this.number = Math.min(this.countermax, this.number + 1);
-            this.requestUpdate();
         //}
     }
 
     onSubtractButtonClick = () => {
         //if (this.shadowRoot.querySelector('#counter-subtract').getAttribute('disabled') == null) {
             this.number = Math.max(this.countermin, this.number - 1);
-            this.requestUpdate();
         //}
     }
 
