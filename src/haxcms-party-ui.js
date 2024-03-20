@@ -14,10 +14,21 @@ export class HaxcmsPartyUI extends DDD {
                 :host {
                     display: block;
                 }
+
                 .party-ui-wrapper {
-                    padding: var(-ddd-spacing-5);
-                    margin: var(--ddd-spacing-2);
-                    color: var(--ddd-theme-default-keystoneYellow);
+                    padding: var(--ddd-spacing-5);
+                    margin: auto;
+                    width: 95%;
+                    text-align: center;
+                    border: var(--ddd-border-lg);
+                    border-color: var(--ddd-theme-default-coalyGray);
+                    background-color: var(--ddd-theme-default-slateMaxLight);
+                }
+
+                .user-button {
+                    background-color: var(--ddd-theme-default-pughBlue);
+                    border-color: var(--ddd-theme-default-beaverBlue);
+
                 }
             `
         ];
@@ -28,7 +39,7 @@ export class HaxcmsPartyUI extends DDD {
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
                     <input type="text" class="username-add">
-                    <button id="useradd-button" class="button"></button>
+                    <button id="useradd-button" class="user-button b-md">Add User</button>
                 </div>
                 <div class="users-panel">
                     
