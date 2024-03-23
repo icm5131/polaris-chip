@@ -40,8 +40,21 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .user-card {
+                    margin: var(--ddd-spacing-1);
                     display: inline-flex;
                     flex-wrap: wrap;
+                    text-align: center;
+                    border: var(--ddd-border-sm);
+                    border-color: var(--ddd-theme-default-potentialMidnight);
+                }
+
+                .userName {
+                    width: 100%;
+                }
+
+                .close {
+                    color: var(--ddd-theme-default-original87Pink);
+                    
                 }
             `
         ];
@@ -81,6 +94,9 @@ export class HaxcmsPartyUI extends DDD {
                         <div class="user-card">
                             <rpg-character seed="${user.title}"></rpg-character>
                             X
+                            <p class="userName">
+                                ${user.title}
+                            </p>
                         </div>
                     `)}
                 </div>
