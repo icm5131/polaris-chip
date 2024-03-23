@@ -40,12 +40,13 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .user-card {
-                    margin: var(--ddd-spacing-1);
+                    margin: var(--ddd-spacing-4);
                     display: inline-flex;
                     flex-wrap: wrap;
                     text-align: center;
                     border: var(--ddd-border-sm);
                     border-color: var(--ddd-theme-default-potentialMidnight);
+                    padding: var(--ddd-spacing-2);
                 }
 
                 .userName {
@@ -60,7 +61,7 @@ export class HaxcmsPartyUI extends DDD {
         ];
     }
 
-     updateName(event) {
+    updateName(event) {
         this.userName = event.target.value;
     }
 
@@ -91,7 +92,7 @@ export class HaxcmsPartyUI extends DDD {
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
-                        <div class="user-card">
+                        <div class="user-card mt-3">
                             <rpg-character seed="${user.title}"></rpg-character>
                             X
                             <p class="userName">
