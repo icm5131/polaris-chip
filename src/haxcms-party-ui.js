@@ -25,18 +25,29 @@ export class HaxcmsPartyUI extends DDD {
 
                 .party-ui-wrapper {
                     padding: var(--ddd-spacing-5);
-                    margin: auto;
+                    margin: var(--ddd-spacing-4);
                     width: 95%;
                     text-align: center;
                     border: var(--ddd-border-lg);
-                    border-color: var(--ddd-theme-default-coalyGray);
+                    border-color: var(--ddd-theme-default-potentialMidnight);
+                    border-radius: 5px;
                     background-color: var(--ddd-theme-default-limestoneLight);
                 }
 
-                .user-button {
-                    background-color: var(--ddd-theme-default-pughBlue);
-                    border-color: var(--ddd-theme-default-beaverBlue);
+                .add {
+                    background-color: var(--ddd-theme-default-link);
+                    border: none;
+                    color: var(--ddd-theme-default-white);
+                    border-radius: 5px;
+                    font-size: 16px;
+                    font-weight: var(--ddd-font-primary-medium);
+                    padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
+                    margin: var(--ddd-spacing-3);
+                }
 
+                .add:focus,
+                .add:hover {
+                    background-color: var(--ddd-theme-default-nittanyNavy);
                 }
 
                 .user-card {
@@ -44,18 +55,35 @@ export class HaxcmsPartyUI extends DDD {
                     display: inline-flex;
                     flex-wrap: wrap;
                     text-align: center;
-                    border: var(--ddd-border-sm);
+                    border: var(--ddd-border-md);
+                    border-radius: 5px;
                     border-color: var(--ddd-theme-default-potentialMidnight);
                     padding: var(--ddd-spacing-2);
+                }
+
+                .user-char {
+                    margin: auto;
                 }
 
                 .userName {
                     width: 100%;
                 }
 
-                .close {
-                    color: var(--ddd-theme-default-original87Pink);
-                    
+                .remove {
+                    background-color: var(--ddd-theme-default-limestoneLight);
+                    border-color: var(--ddd-theme-default-potentialMidnight);
+                    margin: auto;
+                    border-radius: 5px;
+                    width: 50%;
+                    font-size: 16px;
+                    font-weight: var(--ddd-front-primary-medium);
+                    padding: var(--ddd-spacing-2);
+                }
+
+                .remove:hover,
+                .add:focus {
+                    background-color: var(--ddd-theme-default-potentialMidnight);
+                    color: var(--ddd-theme-default-limestoneLight);
                 }
             `
         ];
@@ -72,8 +100,7 @@ export class HaxcmsPartyUI extends DDD {
         const user = {
           id: randomNumber,
           title: this.userName,
-          content: "Some content of some kind",
-          coolness: 7
+          
         }
         console.log(user);
         // push by itself is not a mutating operation
@@ -81,26 +108,36 @@ export class HaxcmsPartyUI extends DDD {
         this.requestUpdate();
         //this.items = [...this.items, item];
         console.log(this.users);
-      }
+    }
+
+    removeUser(e) {
+        this.shadowRoot.querySelectorAll('div').forEach((user) => {
+            if (user === e.target.closest('div')) {
+                console.log(user);
+                user.remove();
+            }
+        });
+    }
 
     render() {
         return html`
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
                     <input type="text" class="username-add" id="username-input" @input="${this.updateName}"/>
-                    <button class="user-button b-md" @click="${this.addUser}">Add User</button>
+                    <button class="add" @click="${this.addUser}">Add User</button>
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
-                        <div class="user-card mt-3">
-                            <rpg-character seed="${user.title}"></rpg-character>
-                            X
+                        <div class="user-card ${user.title}">
+                            <rpg-character class="user-char" seed="${user.title}"></rpg-character>
                             <p class="userName">
                                 ${user.title}
                             </p>
+                            <button class="remove" @click="${this.removeUser}">Remove User</button>
                         </div>
                     `)}
                 </div>
+                <button class="save-users">Save Users</button>
             </div>
         `;
     }
