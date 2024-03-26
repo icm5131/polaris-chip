@@ -89,6 +89,11 @@ export class HaxcmsPartyUI extends DDD {
         ];
     }
 
+    /* inputScrub(e) {
+        const inputVal = e.target.value;
+        const scrubVal = inputVal.replace(/^[a-z0-9]+$/g, "");
+    } */
+
     updateName(event) {
         this.userName = event.target.value;
     }
@@ -99,14 +104,12 @@ export class HaxcmsPartyUI extends DDD {
 
         const user = {
           id: randomNumber,
-          title: this.userName,
+          name: this.userName,
           
         }
         console.log(user);
-        // push by itself is not a mutating operation
         this.users.push(user);
         this.requestUpdate();
-        //this.items = [...this.items, item];
         console.log(this.users);
     }
 
@@ -128,16 +131,19 @@ export class HaxcmsPartyUI extends DDD {
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
-                        <div class="user-card ${user.title}">
-                            <rpg-character class="user-char" seed="${user.title}"></rpg-character>
+                        <div class="user-card ${user.name}">
+                            <rpg-character class="user-char" seed="${user.name}"></rpg-character>
                             <p class="userName">
-                                ${user.title}
+                                ${user.name}
                             </p>
                             <button class="remove" @click="${this.removeUser}">Remove User</button>
                         </div>
                     `)}
                 </div>
                 <button class="save-users">Save Users</button>
+                <p>
+                    
+                </p>
             </div>
         `;
     }
