@@ -94,6 +94,10 @@ export class HaxcmsPartyUI extends DDD {
     }
 
     inputScrub(e) {
+        if (e.key === "Enter"){
+            this.addUser(e);
+            
+        }
         const inputVal = e.target.value;
         const scrubVal = inputVal.replace(/[^a-z0-9]+$/g, "");
         e.target.value = scrubVal.slice(0, 10);
@@ -122,7 +126,8 @@ export class HaxcmsPartyUI extends DDD {
             this.requestUpdate();
         }
         else {
-            e.target.focus();
+            document.getElementsById("username-input").focus();
+            document.getElementsById("username-input").select();
         }
     }
 
@@ -134,8 +139,8 @@ export class HaxcmsPartyUI extends DDD {
         return html`
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
-                    <input type="text" class="username-add" id="username-input" @keyup="${this.inputScrub}" @input="${this.updateName}"/>
-                    <button class="add" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
+                    <input type="text" class="username-add" id="username-input" @keypress="${this.inputScrub}" @input="${this.updateName}" />
+                    <button class="add" id="add-user" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
