@@ -12,7 +12,7 @@ export class HaxcmsPartyUI extends DDD {
         super();
 
         this.users = [];
-        this.userName = "Name";
+        this.userName = null;
     }
 
     static get styles() {
@@ -48,6 +48,10 @@ export class HaxcmsPartyUI extends DDD {
                 .add:focus,
                 .add:hover {
                     background-color: var(--ddd-theme-default-nittanyNavy);
+                }
+
+                button:disabled {
+                    background-color: var(--ddd-theme-default-disabled);
                 }
 
                 .user-card {
@@ -89,7 +93,7 @@ export class HaxcmsPartyUI extends DDD {
         ];
     }
 
-     inputScrub(e) {
+    inputScrub(e) {
         const inputVal = e.target.value;
         const scrubVal = inputVal.replace(/[^a-z0-9]+$/g, "");
         e.target.value = scrubVal.slice(0, 10);
@@ -99,28 +103,31 @@ export class HaxcmsPartyUI extends DDD {
         this.userName = event.target.value;
     }
 
+
+    //check if user is in
+    //add auto enter
+    //remove input and refocus on enter
+    //create cutoff for card size
     addUser(e) {
-        const randomNumber = globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
+        if(!this.users.includes(this.userName)) {
+            const randomNumber = globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
         
 
-        const user = {
-          id: randomNumber,
-          name: this.userName,
+            const user = {
+            id: randomNumber,
+            name: this.userName,
           
+            }
+            this.users.push(user);
+            this.requestUpdate();
         }
-        console.log(user);
-        this.users.push(user);
-        this.requestUpdate();
-        console.log(this.users);
+        else {
+            e.target.focus();
+        }
     }
 
     removeUser(e) {
-        this.shadowRoot.querySelectorAll('div').forEach((user) => {
-            if (user === e.target.closest('div')) {
-                console.log(user);
-                user.remove();
-            }
-        });
+        this.users = this.users.filter(user => user.id !== parseInt(e.target.getAttribute('data-user-id')));
     }
 
     render() {
@@ -128,7 +135,7 @@ export class HaxcmsPartyUI extends DDD {
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
                     <input type="text" class="username-add" id="username-input" @keyup="${this.inputScrub}" @input="${this.updateName}"/>
-                    <button class="add" @click="${this.addUser}">Add User</button>
+                    <button class="add" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
@@ -137,7 +144,7 @@ export class HaxcmsPartyUI extends DDD {
                             <p class="userName">
                                 ${user.name}
                             </p>
-                            <button class="remove" @click="${this.removeUser}">Remove User</button>
+                            <button class="remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove User</button>
                         </div>
                     `)}
                 </div>
