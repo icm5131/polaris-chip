@@ -89,10 +89,11 @@ export class HaxcmsPartyUI extends DDD {
         ];
     }
 
-    /* inputScrub(e) {
+     inputScrub(e) {
         const inputVal = e.target.value;
-        const scrubVal = inputVal.replace(/^[a-z0-9]+$/g, "");
-    } */
+        const scrubVal = inputVal.replace(/[^a-z0-9]+$/g, "");
+        e.target.value = scrubVal.slice(0, 10);
+    }
 
     updateName(event) {
         this.userName = event.target.value;
@@ -126,7 +127,7 @@ export class HaxcmsPartyUI extends DDD {
         return html`
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
-                    <input type="text" class="username-add" id="username-input" @input="${this.updateName}"/>
+                    <input type="text" class="username-add" id="username-input" @keyup="${this.inputScrub}" @input="${this.updateName}"/>
                     <button class="add" @click="${this.addUser}">Add User</button>
                 </div>
                 <div class="users-panel">
