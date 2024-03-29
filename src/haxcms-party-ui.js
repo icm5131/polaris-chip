@@ -12,6 +12,7 @@ export class HaxcmsPartyUI extends DDD {
         super();
 
         this.users = [];
+        this.printUsers = [];
         this.userName = null;
     }
 
@@ -70,6 +71,9 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .userName {
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: clip;
                     width: 100%;
                 }
 
@@ -107,13 +111,8 @@ export class HaxcmsPartyUI extends DDD {
         this.userName = event.target.value;
     }
 
-
-    //check if user is in
-    //add auto enter
-    //remove input and refocus on enter
-    //create cutoff for card size
     addUser(e) {
-        if(!this.users.includes(this.userName)) {
+        if(!this.users.filter(e => e.name === this.userName).length > 0) {
             const randomNumber = globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
         
 
@@ -123,11 +122,16 @@ export class HaxcmsPartyUI extends DDD {
           
             }
             this.users.push(user);
+            this.printUsers.push(user.name);
             this.requestUpdate();
+
+            this.userName = "";
+            //focus on input??
         }
         else {
-            document.getElementsById("username-input").focus();
-            document.getElementsById("username-input").select();
+            //select rather than delete??
+            this.userName = "";
+            //focus on input??
         }
     }
 
@@ -135,12 +139,20 @@ export class HaxcmsPartyUI extends DDD {
         this.users = this.users.filter(user => user.id !== parseInt(e.target.getAttribute('data-user-id')));
     }
 
+    displayUsers(e) {
+        /* this.users.forEach(user => {
+            console.log(user.name);
+            this.printUsers.push(user.name);
+            this.requestUpdate;
+        }); */
+    }
+
     render() {
         return html`
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
-                    <input type="text" class="username-add" id="username-input" @keypress="${this.inputScrub}" @input="${this.updateName}" />
-                    <button class="add" id="add-user" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
+                    <input type="text" class="username-add" value="${this.userName}" @keypress="${this.inputScrub}" @input="${this.updateName}" />
+                    <button class="add" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
@@ -153,9 +165,9 @@ export class HaxcmsPartyUI extends DDD {
                         </div>
                     `)}
                 </div>
-                <button class="save-users">Save Users</button>
-                <p>
-                    
+                <button class="save-users" @click="${this.displayUsers}">Save Users</button>
+                <p class="array-display">
+                    ${this.printUsers}
                 </p>
             </div>
         `;
@@ -165,7 +177,8 @@ export class HaxcmsPartyUI extends DDD {
         return {
             ...super.properties,
             users: { type: Array },
-            userName: { type: String, attribute: "user-name"}
+            userName: { type: String, attribute: "user-name", reflect: true },
+            printUsers: { type: Array, attribute: "print-users", reflect: true }
         }
     }
 }
