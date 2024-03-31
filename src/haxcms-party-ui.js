@@ -100,7 +100,7 @@ export class HaxcmsPartyUI extends DDD {
     inputScrub(e) {
         if (e.key === "Enter"){
             this.addUser(e);
-            
+            e.target.select();
         }
         const inputVal = e.target.value;
         const scrubVal = inputVal.replace(/[^a-z0-9]+$/g, "");
@@ -122,7 +122,7 @@ export class HaxcmsPartyUI extends DDD {
           
             }
             this.users.push(user);
-            this.printUsers.push(user.name);
+            //this.printUsers.push(user.name);
             this.requestUpdate();
 
             this.userName = "";
@@ -140,18 +140,17 @@ export class HaxcmsPartyUI extends DDD {
     }
 
     displayUsers(e) {
-        /* this.users.forEach(user => {
-            console.log(user.name);
-            this.printUsers.push(user.name);
-            this.requestUpdate;
+        /* this.printUsers = this.users.map(function(user) {
+            return user["name"];
         }); */
+        this.printUsers = JSON.stringify(this.users);
     }
 
     render() {
         return html`
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
-                    <input type="text" class="username-add" value="${this.userName}" @keypress="${this.inputScrub}" @input="${this.updateName}" />
+                    <input type="text" class="username-add" onfocus="this.value=''" @keypress="${this.inputScrub}" @input="${this.updateName}" />
                     <button class="add" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
                 </div>
                 <div class="users-panel">
