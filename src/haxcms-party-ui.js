@@ -1,4 +1,4 @@
-import { html, css } from "lit";
+import { html, css, _$LE } from "lit";
 import { DDD } from "@lrnwebcomponents/d-d-d/d-d-d.js";
 import "@lrnwebcomponents/rpg-character/rpg-character.js";
 
@@ -14,6 +14,7 @@ export class HaxcmsPartyUI extends DDD {
         this.users = [];
         this.printUsers = [];
         this.userName = null;
+        this.success = false;
     }
 
     static get styles() {
@@ -29,30 +30,30 @@ export class HaxcmsPartyUI extends DDD {
                     margin: var(--ddd-spacing-4);
                     width: 95%;
                     text-align: center;
-                    border: var(--ddd-border-lg);
-                    border-color: var(--ddd-theme-default-potentialMidnight);
-                    border-radius: 5px;
+                    font-family: var(--ddd-font-primary);
                     background-color: var(--ddd-theme-default-limestoneLight);
                 }
 
-                .add {
+                .ui-button {
                     background-color: var(--ddd-theme-default-link);
                     border: none;
                     color: var(--ddd-theme-default-white);
-                    border-radius: 5px;
-                    font-size: 16px;
+                    border-radius: var(--ddd-radius-xs);
+                    font-size: var(--ddd-font-size-4xs);
                     font-weight: var(--ddd-font-primary-medium);
                     padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
                     margin: var(--ddd-spacing-3);
                 }
 
-                .add:focus,
-                .add:hover {
+                .ui-button:focus,
+                .ui-button:hover {
                     background-color: var(--ddd-theme-default-nittanyNavy);
                 }
 
                 button:disabled {
                     background-color: var(--ddd-theme-default-disabled);
+                    color: var(--ddd-theme-default-potentialMidnight);
+                    cursor: not-allowed;
                 }
 
                 .user-card {
@@ -61,7 +62,7 @@ export class HaxcmsPartyUI extends DDD {
                     flex-wrap: wrap;
                     text-align: center;
                     border: var(--ddd-border-md);
-                    border-radius: 5px;
+                    border-radius: var(--ddd-radius-xs);
                     border-color: var(--ddd-theme-default-potentialMidnight);
                     padding: var(--ddd-spacing-2);
                 }
@@ -77,33 +78,48 @@ export class HaxcmsPartyUI extends DDD {
                     width: 100%;
                 }
 
-                .remove {
+                .card-button {
                     background-color: var(--ddd-theme-default-limestoneLight);
                     border-color: var(--ddd-theme-default-potentialMidnight);
                     margin: auto;
-                    border-radius: 5px;
+                    border-radius: var(--ddd-radius-xs);
                     width: 50%;
-                    font-size: 16px;
+                    font-size: var(--dd-font-size-4xs);
                     font-weight: var(--ddd-front-primary-medium);
                     padding: var(--ddd-spacing-2);
                 }
 
-                .remove:hover,
-                .add:focus {
+                .card-button:hover,
+                .card-button:focus {
                     background-color: var(--ddd-theme-default-potentialMidnight);
                     color: var(--ddd-theme-default-limestoneLight);
+                }
+
+                .success {
+                    width: 25%;
+                    margin: auto;
+                    padding: var(--ddd-spacing-4);
+                    background-color: var(--ddd-theme-default-success);
+                    color: var(--ddd-theme-default-white);
+                    font-size: var(--ddd-font-size-m);
+                    border-radius: var(--ddd-radius-xs);
+                }
+
+                .success:hidden {
+                    display: none;
                 }
             `
         ];
     }
 
     inputScrub(e) {
-        if (e.key === "Enter"){
-            this.addUser(e);
-            e.target.select();
+        if (e.key === "Enter") {
+            const button = document.querySelector('haxcms-party-ui').shadowRoot.getElementById("add-button");
+            button.focus();
+            button.click();
         }
         const inputVal = e.target.value;
-        const scrubVal = inputVal.replace(/[^a-z0-9]+$/g, "");
+        const scrubVal = inputVal.toLowerCase().replace(/[^a-z0-9]+$/g, "");
         e.target.value = scrubVal.slice(0, 10);
     }
 
@@ -112,27 +128,34 @@ export class HaxcmsPartyUI extends DDD {
     }
 
     addUser(e) {
-        if(!this.users.filter(e => e.name === this.userName).length > 0) {
+        if (!this.users.filter(e => e.name === this.userName).length > 0) {
             const randomNumber = globalThis.crypto.getRandomValues(new Uint32Array(1))[0];
-        
+
 
             const user = {
-            id: randomNumber,
-            name: this.userName,
-          
+                id: randomNumber,
+                name: this.userName,
+
             }
             this.users.push(user);
-            //this.printUsers.push(user.name);
-            this.requestUpdate();
-
             this.userName = "";
-            //focus on input??
+            document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").value = "";
+            this.requestUpdate();
+            document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").focus();
         }
         else {
-            //select rather than delete??
-            this.userName = "";
-            //focus on input??
+            document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").select();
         }
+    }
+
+    makeItRain() {
+        import("@lrnwebcomponents/multiple-choice/lib/confetti-container.js").then(
+            (module) => {
+                setTimeout(() => {
+                    this.shadowRoot.querySelector("#confetti").setAttribute("popped", "");
+                }, 0);
+            }
+        );
     }
 
     removeUser(e) {
@@ -140,18 +163,19 @@ export class HaxcmsPartyUI extends DDD {
     }
 
     displayUsers(e) {
-        /* this.printUsers = this.users.map(function(user) {
-            return user["name"];
-        }); */
-        this.printUsers = JSON.stringify(this.users);
+        if (this.users.length !== 0) {
+            this.printUsers = JSON.stringify(this.users);
+            this.makeItRain();
+            this.success = true;
+        }
     }
 
     render() {
         return html`
             <div class="party-ui-wrapper">
                 <div class="input-wrapper">
-                    <input type="text" class="username-add" onfocus="this.value=''" @keypress="${this.inputScrub}" @input="${this.updateName}" />
-                    <button class="add" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
+                    <input type="text" class="username-add" id="user-input" value="${this.userName}" @keypress="${this.inputScrub}" @input="${this.updateName}" />
+                    <button class="add ui-button" id="add-button" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
                 </div>
                 <div class="users-panel">
                     ${this.users.map((user) => html`
@@ -160,14 +184,19 @@ export class HaxcmsPartyUI extends DDD {
                             <p class="userName">
                                 ${user.name}
                             </p>
-                            <button class="remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove User</button>
+                            <button class="card-button remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove User</button>
                         </div>
                     `)}
                 </div>
-                <button class="save-users" @click="${this.displayUsers}">Save Users</button>
-                <p class="array-display">
-                    ${this.printUsers}
-                </p>
+                <button class="save-users ui-button" @click="${this.displayUsers}" ?disabled="${this.users.length == 0}">Save Users</button>
+                <confetti-container id="confetti">
+                    <p class="success" ?hidden="${!this.success}">
+                        SUCCESS!!
+                    </p>
+                    <p class="array-display">
+                        ${this.printUsers}
+                    </p>
+                </confetti-container>
             </div>
         `;
     }
@@ -177,7 +206,8 @@ export class HaxcmsPartyUI extends DDD {
             ...super.properties,
             users: { type: Array },
             userName: { type: String, attribute: "user-name", reflect: true },
-            printUsers: { type: Array, attribute: "print-users", reflect: true }
+            printUsers: { type: Array, attribute: "print-users", reflect: true },
+            success: { type: Boolean }
         }
     }
 }
