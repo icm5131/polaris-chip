@@ -139,6 +139,7 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .array-text {
+                    width: 100%;
                     margin: auto;
                     background-color: transparent;
                     overflow-x: hidden;
