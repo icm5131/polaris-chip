@@ -161,7 +161,7 @@ export class HaxcmsPartyUI extends DDD {
 
                 @media (max-width: 768px) {
                     .users-panel {
-                        transform: scale(.8);
+                        transform: scale(.9);
                     }
 
                     .user-card {
@@ -178,7 +178,7 @@ export class HaxcmsPartyUI extends DDD {
                     }
 
                     .card-button {
-                        //font-size: var(--font-size-6xs);
+                        font-size: var(--font-size-xs);
                         margin: var(--ddd-spacing-1);
                     }
 
