@@ -189,6 +189,7 @@ export class HaxcmsPartyUI extends DDD {
             document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").focus();
         }
         else {
+            alert("USER ALREADY ADDED")
             document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").select();
         }
     }
@@ -209,7 +210,7 @@ export class HaxcmsPartyUI extends DDD {
 
     displayUsers(e) {
         if (this.users.length !== 0) {
-            this.printUsers = JSON.stringify(this.users);
+            this.printUsers = JSON.stringify(this.users, null, 5);
             this.makeItRain();
             this.success = true;
         }
@@ -218,23 +219,23 @@ export class HaxcmsPartyUI extends DDD {
     render() {
         return html`
             <div class="party-ui-wrapper">
-                <div class="input-wrapper">
-                    <input type="text" class="username-add" id="user-input" value="${this.userName}" @keypress="${this.inputScrub}" @input="${this.updateName}" />
-                    <button class="add ui-button" id="add-button" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
-                </div>
-                <div class="users-panel">
-                    ${this.users.map((user) => html`
-                        <div class="user-card ${user.name}">
-                            <rpg-character class="user-char" seed="${user.name}"></rpg-character>
-                            <p class="userName">
-                                ${user.name}
-                            </p>
-                            <button class="card-button remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove User</button>
-                        </div>
-                    `)}
-                </div>
-                <button class="save-users ui-button" @click="${this.displayUsers}" ?disabled="${this.users.length == 0}">Save Users</button>
                 <confetti-container id="confetti">
+                    <div class="input-wrapper">
+                        <input type="text" class="username-add" id="user-input" value="${this.userName}" @keypress="${this.inputScrub}" @input="${this.updateName}" />
+                        <button class="add ui-button" id="add-button" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
+                    </div>
+                    <div class="users-panel">
+                        ${this.users.map((user) => html`
+                            <div class="user-card ${user.name}">
+                                <rpg-character class="user-char" seed="${user.name}"></rpg-character>
+                                <p class="userName">
+                                    ${user.name}
+                                </p>
+                                <button class="card-button remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove User</button>
+                            </div>
+                        `)}
+                    </div>
+                    <button class="save-users ui-button" @click="${this.displayUsers}" ?disabled="${this.users.length == 0}">Save Users</button>
                     <div class="success" ?hidden="${!this.success}">
                         SUCCESS!!
                     </div>
