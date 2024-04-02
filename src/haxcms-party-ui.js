@@ -115,7 +115,7 @@ export class HaxcmsPartyUI extends DDD {
                     padding: var(--ddd-spacing-2);
                     border-radius: var(--ddd-radius-xs);
                     width: 100%;
-                    font-size: var(--font-size-5xs);
+                    font-size: var(--ddd-font-size-4xs);
                     font-weight: var(--ddd-front-primary-medium);
                     padding: var(--ddd-spacing-2);
                 }
@@ -127,7 +127,7 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .success {
-                    width: 25%;
+                    width: 80%;
                     margin: auto;
                     padding: var(--ddd-spacing-4);
                     background-color: var(--ddd-theme-default-success);
@@ -142,7 +142,7 @@ export class HaxcmsPartyUI extends DDD {
 
                 .array-display {
                     width: 80%;
-                    margin: auto;
+                    margin: var(--ddd-spacing-4) auto;
                     text-align: center;
                 }
 
@@ -190,6 +190,7 @@ export class HaxcmsPartyUI extends DDD {
 
                     .userName {
                         margin: var(--ddd-spacing-1);
+                        font-size: var(--font-size-5xs);
                     }
 
                     .ui-button {
