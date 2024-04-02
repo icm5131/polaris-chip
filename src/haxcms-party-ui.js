@@ -134,6 +134,22 @@ export class HaxcmsPartyUI extends DDD {
                     color: var(--ddd-theme-default-successLight);
                     font-size: var(--ddd-font-size-s);
                     border-radius: var(--ddd-radius-xs);
+                    animation: animate 1.75s linear infinite;
+                }
+
+                @keyframes animate {
+                    0%{
+                        background-color: var(--ddd-theme-default-success);
+                        color: var(--ddd-theme-default-successLight);
+                    }
+                    50%{
+                        background-color: var(--ddd-theme-default-successLight);
+                        color: var(--ddd-theme-default-success);
+                    }
+                    100%{
+                        background-color: var(--ddd-theme-default-success);
+                        color: var(--ddd-theme-default-successLight);
+                    }
                 }
 
                 .success:hidden {
@@ -166,7 +182,6 @@ export class HaxcmsPartyUI extends DDD {
 
                     .user-card {
                         margin: var(--ddd-spacing-1);
-                        //font-size: var(--font-size-6xs);
                     }
 
                     .rpg {
@@ -193,17 +208,8 @@ export class HaxcmsPartyUI extends DDD {
                         font-size: var(--font-size-5xs);
                     }
 
-                    .ui-button {
-                        //font-size: var(--font-size-6xs);
-                    }
-
                     .success {
                         transform: scale(.8);
-                        //font-size: var(--font-size-6xs);
-                    }
-
-                    .array-text {
-                        //font-size: var(--font-size-6xs);
                     }
                 }
             `
