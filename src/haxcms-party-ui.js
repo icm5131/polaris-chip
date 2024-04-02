@@ -52,6 +52,9 @@ export class HaxcmsPartyUI extends DDD {
                     height: 50vh;
                     overflow-x: hidden;
                     overflow-y: auto;
+                    border: var(--ddd-border-md);
+                    border-color: var(--ddd-theme-default-potentialMidnight);
+                    border-radius: var(--ddd-radius-xs);
                 }
 
                 .ui-button {
