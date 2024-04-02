@@ -134,7 +134,7 @@ export class HaxcmsPartyUI extends DDD {
 
                 .array-display {
                     margin: var(--ddd-spacing-4) auto;
-                    width: 50%;
+                    width: 90%;
                     overflow-y: auto;
                 }
 
