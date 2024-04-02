@@ -274,7 +274,7 @@ export class HaxcmsPartyUI extends DDD {
                 <confetti-container id="confetti">
                     <div class="input-wrapper">
                         <input type="text" class="username-add" id="user-input" value="${this.userName}" @keypress="${this.checkRun}" @input="${this.updateName}" />
-                        <button class="add ui-button" id="add-button" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
+                        <button class="add ui-button" id="add-button" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add</button>
                     </div>
                     <div class="users-panel">
                         ${this.users.map((user) => html`
@@ -291,7 +291,7 @@ export class HaxcmsPartyUI extends DDD {
                             </div>
                         `)}
                     </div>
-                    <button class="save-users ui-button" @click="${this.displayUsers}" ?disabled="${this.users.length == 0}">Save Users</button>
+                    <button class="save-users ui-button" @click="${this.displayUsers}" ?disabled="${this.users.length == 0}">Save</button>
                     <div class="success" ?hidden="${!this.success}">
                         SUCCESS!!
                     </div>
