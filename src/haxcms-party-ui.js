@@ -189,7 +189,7 @@ export class HaxcmsPartyUI extends DDD {
             document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").focus();
         }
         else {
-            alert("USER ALREADY ADDED")
+            window.alert("USER ALREADY ADDED")
             document.querySelector('haxcms-party-ui').shadowRoot.getElementById("user-input").select();
         }
     }
