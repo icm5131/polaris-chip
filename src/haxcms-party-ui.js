@@ -86,7 +86,7 @@ export class HaxcmsPartyUI extends DDD {
                     border: var(--ddd-border-md);
                     border-radius: var(--ddd-radius-xs);
                     border-color: var(--ddd-theme-default-potentialMidnight);
-                    box-shadow: 10px 5px 5px var(--ddd-theme-default-limestoneGray);
+                    box-shadow: 8px 4px 4px var(--ddd-theme-default-limestoneGray);
                 }
 
                 .rpg {
@@ -169,6 +169,7 @@ export class HaxcmsPartyUI extends DDD {
                     overflow-y: auto;
                     border: var(--ddd-border-md);
                     border-color: var(--ddd-theme-default-potentialMidnight);
+                    box-shadow: 8px 4px 4px var(--ddd-theme-default-limestoneGray);
                 }
 
                 .array-display:hidden {
