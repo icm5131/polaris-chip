@@ -28,10 +28,15 @@ export class HaxcmsPartyUI extends DDD {
                 .party-ui-wrapper {
                     padding: var(--ddd-spacing-5);
                     margin: var(--ddd-spacing-4);
-                    width: 95%;
                     text-align: center;
                     font-family: var(--ddd-font-primary);
                     background-color: var(--ddd-theme-default-limestoneLight);
+                }
+
+                .users-panel {
+                    height: 50vh;
+                    overflow-x: hidden;
+                    overflow-y: auto;
                 }
 
                 .ui-button {
@@ -58,13 +63,13 @@ export class HaxcmsPartyUI extends DDD {
 
                 .user-card {
                     margin: var(--ddd-spacing-4);
+                    padding: var(--ddd-spacing-2);
                     display: inline-flex;
                     flex-wrap: wrap;
                     text-align: center;
                     border: var(--ddd-border-md);
                     border-radius: var(--ddd-radius-xs);
                     border-color: var(--ddd-theme-default-potentialMidnight);
-                    padding: var(--ddd-spacing-2);
                 }
 
                 .user-char {
@@ -83,7 +88,7 @@ export class HaxcmsPartyUI extends DDD {
                     border-color: var(--ddd-theme-default-potentialMidnight);
                     margin: auto;
                     border-radius: var(--ddd-radius-xs);
-                    width: 50%;
+                    width: 55%;
                     font-size: var(--dd-font-size-4xs);
                     font-weight: var(--ddd-front-primary-medium);
                     padding: var(--ddd-spacing-2);
@@ -107,6 +112,21 @@ export class HaxcmsPartyUI extends DDD {
 
                 .success:hidden {
                     display: none;
+                }
+
+                @media (max-width: 768px) {
+                    .users-panel {
+                        transform: scale(.7);
+                    }
+
+                    .user-card {
+                        margin: var(--ddd-spacing-1);
+                    }
+
+                    .ui-button {
+                        font-size: 12px;
+                    }
+
                 }
             `
         ];
