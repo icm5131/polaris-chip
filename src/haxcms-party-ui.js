@@ -36,6 +36,11 @@ export class HaxcmsPartyUI extends DDD {
                     font-family: "Press Start 2P", system-ui;
                 }
 
+                pre {
+                    white-space: pre-line;
+                    text-align: left;
+                }
+
                 .party-ui-wrapper {
                     padding: var(--ddd-spacing-5);
                     margin: var(--ddd-spacing-4);
@@ -128,7 +133,21 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .array-display {
-                    margin: var(--ddd-spacing-4);
+                    margin: var(--ddd-spacing-4) auto;
+                    width: 50%;
+                    overflow-y: auto;
+                }
+
+                .array-text {
+                    margin: auto;
+                    background-color: transparent;
+                    overflow-x: hidden;
+                    border: var(--ddd-border-md);
+                    border-color: var(--ddd-theme-default-potentialMidnight);
+                }
+
+                .array-display:hidden {
+                    display: none;
                 }
 
                 @media (max-width: 768px) {
@@ -157,19 +176,19 @@ export class HaxcmsPartyUI extends DDD {
         ];
     }
 
-    inputScrub(e) {
+    checkRun(e) {
         if (e.key === "Enter") {
             const button = document.querySelector('haxcms-party-ui').shadowRoot.getElementById("add-button");
             button.focus();
             button.click();
         }
+    }
+
+    updateName(e) {
         const inputVal = e.target.value;
         const scrubVal = inputVal.toLowerCase().replace(/[^a-z0-9]+$/g, "");
         e.target.value = scrubVal.slice(0, 10);
-    }
-
-    updateName(event) {
-        this.userName = event.target.value;
+        this.userName = e.target.value;
     }
 
     addUser(e) {
@@ -210,8 +229,8 @@ export class HaxcmsPartyUI extends DDD {
 
     displayUsers(e) {
         if (this.users.length !== 0) {
-            this.printUsers = JSON.stringify(this.users, null, 5);
-            this.makeItRain();
+            this.printUsers = JSON.stringify(this.users, null, 2);
+            this.makeItRain();0
             this.success = true;
         }
     }
@@ -221,7 +240,7 @@ export class HaxcmsPartyUI extends DDD {
             <div class="party-ui-wrapper">
                 <confetti-container id="confetti">
                     <div class="input-wrapper">
-                        <input type="text" class="username-add" id="user-input" value="${this.userName}" @keypress="${this.inputScrub}" @input="${this.updateName}" />
+                        <input type="text" class="username-add" id="user-input" value="${this.userName}" @keypress="${this.checkRun}" @input="${this.updateName}" />
                         <button class="add ui-button" id="add-button" @click="${this.addUser}" ?disabled="${this.userName == null || this.userName == ""}">Add User</button>
                     </div>
                     <div class="users-panel">
@@ -239,8 +258,10 @@ export class HaxcmsPartyUI extends DDD {
                     <div class="success" ?hidden="${!this.success}">
                         SUCCESS!!
                     </div>
-                    <div class="array-display">
-                        ${this.printUsers}
+                    <div class="array-display" ?hidden="${!this.success}">
+                        <pre class="array-text">
+                            ${this.printUsers}
+                        </pre>
                     </div>
                 </confetti-container>
             </div>
