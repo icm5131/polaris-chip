@@ -25,7 +25,7 @@ export class HaxcmsPartyUI extends DDD {
                     display: block;
                     font-family: "Press Start 2P", system-ui;
                     --font-size-5xs: 12px;
-                    --font-size-6xs: 8px;
+                    --font-size-6xs: 10px;
                 }
 
                 button{
@@ -152,7 +152,7 @@ export class HaxcmsPartyUI extends DDD {
 
                 @media (max-width: 768px) {
                     .users-panel {
-                        transform: scale(.7);
+                        transform: scale(.8);
                     }
 
                     .user-card {
