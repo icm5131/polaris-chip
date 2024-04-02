@@ -23,13 +23,23 @@ export class HaxcmsPartyUI extends DDD {
             css`
                 :host {
                     display: block;
+                    font-family: "Press Start 2P", system-ui;
+                    --font-size-5xs: 12px;
+                    --font-size-6xs: 8px;
+                }
+
+                button{
+                    font-family: "Press Start 2P", system-ui;
+                }
+
+                input {
+                    font-family: "Press Start 2P", system-ui;
                 }
 
                 .party-ui-wrapper {
                     padding: var(--ddd-spacing-5);
                     margin: var(--ddd-spacing-4);
                     text-align: center;
-                    font-family: var(--ddd-font-primary);
                     background-color: var(--ddd-theme-default-limestoneLight);
                 }
 
@@ -44,10 +54,11 @@ export class HaxcmsPartyUI extends DDD {
                     border: none;
                     color: var(--ddd-theme-default-white);
                     border-radius: var(--ddd-radius-xs);
-                    font-size: var(--ddd-font-size-4xs);
+                    font-size: var(--ddd-font-size-5xs);
                     font-weight: var(--ddd-font-primary-medium);
                     padding: var(--ddd-spacing-2) var(--ddd-spacing-4);
                     margin: var(--ddd-spacing-3);
+                    padding: var(--ddd-spacing-2);
                 }
 
                 .ui-button:focus,
@@ -57,7 +68,7 @@ export class HaxcmsPartyUI extends DDD {
 
                 button:disabled {
                     background-color: var(--ddd-theme-default-disabled);
-                    color: var(--ddd-theme-default-potentialMidnight);
+                    color: var(--ddd-theme-default-limestoneGray);
                     cursor: not-allowed;
                 }
 
@@ -70,6 +81,7 @@ export class HaxcmsPartyUI extends DDD {
                     border: var(--ddd-border-md);
                     border-radius: var(--ddd-radius-xs);
                     border-color: var(--ddd-theme-default-potentialMidnight);
+                    box-shadow: 10px 5px 5px var(--ddd-theme-default-limestoneGray);
                 }
 
                 .user-char {
@@ -87,9 +99,10 @@ export class HaxcmsPartyUI extends DDD {
                     background-color: var(--ddd-theme-default-limestoneLight);
                     border-color: var(--ddd-theme-default-potentialMidnight);
                     margin: auto;
+                    padding: var(--ddd-spacing-2);
                     border-radius: var(--ddd-radius-xs);
-                    width: 55%;
-                    font-size: var(--dd-font-size-4xs);
+                    width: 60%;
+                    font-size: var(--font-size-5xs);
                     font-weight: var(--ddd-front-primary-medium);
                     padding: var(--ddd-spacing-2);
                 }
@@ -105,13 +118,17 @@ export class HaxcmsPartyUI extends DDD {
                     margin: auto;
                     padding: var(--ddd-spacing-4);
                     background-color: var(--ddd-theme-default-success);
-                    color: var(--ddd-theme-default-white);
-                    font-size: var(--ddd-font-size-m);
+                    color: var(--ddd-theme-default-successLight);
+                    font-size: var(--ddd-font-size-s);
                     border-radius: var(--ddd-radius-xs);
                 }
 
                 .success:hidden {
                     display: none;
+                }
+
+                .array-display {
+                    margin: var(--ddd-spacing-4);
                 }
 
                 @media (max-width: 768px) {
@@ -124,16 +141,16 @@ export class HaxcmsPartyUI extends DDD {
                     }
 
                     .ui-button {
-                        font-size: 12px;
+                        font-size: var(--font-size-6xs);
                     }
 
                     .success {
                         transform: scale(.7);
-                        font-size: 12px;
+                        font-size: var(--font-size-6xs);
                     }
 
                     .array-display {
-                        font-size: 12px;
+                        font-size: var(--font-size-6xs);
                     }
                 }
             `
@@ -218,12 +235,12 @@ export class HaxcmsPartyUI extends DDD {
                 </div>
                 <button class="save-users ui-button" @click="${this.displayUsers}" ?disabled="${this.users.length == 0}">Save Users</button>
                 <confetti-container id="confetti">
-                    <p class="success" ?hidden="${!this.success}">
+                    <div class="success" ?hidden="${!this.success}">
                         SUCCESS!!
-                    </p>
-                    <p class="array-display">
+                    </div>
+                    <div class="array-display">
                         ${this.printUsers}
-                    </p>
+                    </div>
                 </confetti-container>
             </div>
         `;
