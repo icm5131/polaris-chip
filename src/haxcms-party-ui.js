@@ -89,7 +89,15 @@ export class HaxcmsPartyUI extends DDD {
                     box-shadow: 10px 5px 5px var(--ddd-theme-default-limestoneGray);
                 }
 
+                .rpg {
+                    width: 100%;
+                }
+
                 .user-char {
+                    margin: auto;
+                }
+
+                .card-ui {
                     margin: auto;
                 }
 
@@ -106,7 +114,7 @@ export class HaxcmsPartyUI extends DDD {
                     margin: auto;
                     padding: var(--ddd-spacing-2);
                     border-radius: var(--ddd-radius-xs);
-                    width: 60%;
+                    width: 100%;
                     font-size: var(--font-size-5xs);
                     font-weight: var(--ddd-front-primary-medium);
                     padding: var(--ddd-spacing-2);
@@ -133,16 +141,16 @@ export class HaxcmsPartyUI extends DDD {
                 }
 
                 .array-display {
-                    margin: var(--ddd-spacing-4) auto;
-                    width: 90%;
-                    overflow-y: auto;
+                    width: 80%;
+                    margin: auto;
+                    text-align: center;
                 }
 
                 .array-text {
-                    width: 100%;
                     margin: auto;
                     background-color: transparent;
                     overflow-x: hidden;
+                    overflow-y: auto;
                     border: var(--ddd-border-md);
                     border-color: var(--ddd-theme-default-potentialMidnight);
                 }
@@ -158,6 +166,30 @@ export class HaxcmsPartyUI extends DDD {
 
                     .user-card {
                         margin: var(--ddd-spacing-1);
+                        font-size: var(--font-size-6xs);
+                    }
+
+                    .rpg {
+                        width: 50%;
+                    }
+
+                    .card-ui {
+                        width: 50%;
+                    }
+
+                    .card-button {
+                        font-size: var(--font-size-6xs);
+                        margin: var(--ddd-spacing-1);
+                    }
+
+                    .user-char {
+                        float: left;
+                        transform: scale(.8);
+                        margin: var(--ddd-spacing-1);
+                    }
+
+                    .userName {
+                        margin: var(--ddd-spacing-1);
                     }
 
                     .ui-button {
@@ -165,11 +197,11 @@ export class HaxcmsPartyUI extends DDD {
                     }
 
                     .success {
-                        transform: scale(.7);
+                        transform: scale(.8);
                         font-size: var(--font-size-6xs);
                     }
 
-                    .array-display {
+                    .array-text {
                         font-size: var(--font-size-6xs);
                     }
                 }
@@ -247,11 +279,15 @@ export class HaxcmsPartyUI extends DDD {
                     <div class="users-panel">
                         ${this.users.map((user) => html`
                             <div class="user-card ${user.name}">
-                                <rpg-character class="user-char" seed="${user.name}"></rpg-character>
-                                <p class="userName">
-                                    ${user.name}
-                                </p>
-                                <button class="card-button remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove User</button>
+                                <div class="rpg">
+                                    <rpg-character class="user-char" seed="${user.name}"></rpg-character>
+                                </div>
+                                <div class="card-ui">
+                                    <div class="userName">
+                                        ${user.name}
+                                    </div>
+                                    <button class="card-button remove" data-user-id="${user.id}" @click="${this.removeUser}">Remove</button>
+                                </div>
                             </div>
                         `)}
                     </div>
