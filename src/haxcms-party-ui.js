@@ -200,7 +200,7 @@ export class HaxcmsPartyUI extends DDD {
 
                     .user-char {
                         float: left;
-                        transform: scale(.8);
+                        transform: scale(.9);
                         margin: var(--ddd-spacing-1);
                     }
 
