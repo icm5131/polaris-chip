@@ -166,7 +166,7 @@ export class HaxcmsPartyUI extends DDD {
 
                     .user-card {
                         margin: var(--ddd-spacing-1);
-                        font-size: var(--font-size-6xs);
+                        //font-size: var(--font-size-6xs);
                     }
 
                     .rpg {
@@ -178,7 +178,7 @@ export class HaxcmsPartyUI extends DDD {
                     }
 
                     .card-button {
-                        font-size: var(--font-size-6xs);
+                        //font-size: var(--font-size-6xs);
                         margin: var(--ddd-spacing-1);
                     }
 
@@ -193,16 +193,16 @@ export class HaxcmsPartyUI extends DDD {
                     }
 
                     .ui-button {
-                        font-size: var(--font-size-6xs);
+                        //font-size: var(--font-size-6xs);
                     }
 
                     .success {
                         transform: scale(.8);
-                        font-size: var(--font-size-6xs);
+                        //font-size: var(--font-size-6xs);
                     }
 
                     .array-text {
-                        font-size: var(--font-size-6xs);
+                        //font-size: var(--font-size-6xs);
                     }
                 }
             `
