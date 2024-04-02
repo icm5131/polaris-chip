@@ -127,6 +127,14 @@ export class HaxcmsPartyUI extends DDD {
                         font-size: 12px;
                     }
 
+                    .success {
+                        transform: scale(.7);
+                        font-size: 12px;
+                    }
+
+                    .array-display {
+                        font-size: 12px;
+                    }
                 }
             `
         ];
